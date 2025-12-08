@@ -1,4 +1,4 @@
-# 🔐 Authentication & Deployment Guide
+# 🚀 Launch & Deployment Guide
 
 ## 1. Google OAuth2 Setup (Gmail Sending)
 To enable the contact form to send emails via your Gmail account:
@@ -10,7 +10,7 @@ To enable the contact form to send emails via your Gmail account:
    - User Type: **External**.
    - App Name: "Olaf Klein Website".
    - Support Email: Your email.
-   - Initial Test Users: Add the email address you plan to send from (`monkeytower`'s email?).
+   - Initial Test Users: Add the email address you plan to send from.
 5. **Credentials**:
    - Click "Create Credentials" -> "OAuth client ID".
    - Application Type: **Web application**.
@@ -23,15 +23,6 @@ To enable the contact form to send emails via your Gmail account:
    - Click "Authorize APIs".
    - Exchange authorization code for tokens.
    - **Result**: Copy the `Refresh Token`.
-
-**Update `.env`**:
-```bash
-GOOGLE_CLIENT_ID=...
-GOOGLE_CLIENT_SECRET=...
-GOOGLE_REFRESH_TOKEN=...
-EMAIL_USER=sender@gmail.com
-EMAIL_TO=recipient@example.com
-```
 
 ---
 
@@ -50,19 +41,40 @@ To enable the `/keystatic` Admin UI in production:
 7. Copy `Client ID` and `Client Secret`.
 8. **Install App**: Click "Install App" and select the `monkeytower-internet-agency/olaf-klein-de` repository.
 
-**Update `.env`**:
-```bash
-KEYSTATIC_GITHUB_CLIENT_ID=...
-KEYSTATIC_GITHUB_CLIENT_SECRET=...
-KEYSTATIC_SECRET=... # Generate a random string (e.g. openssl rand -hex 32)
-```
-
 ---
 
-## 3. Netlify Deployment
-1. Connect via CLI or Dashboard.
-2. **Build Settings**:
-   - Command: `npm run build`
-   - Publish directory: `dist`
-3. **Environment Variables**:
-   - Paste all variables from `.env`.
+## 3. Repository & Environment Setup
+
+My automated tools were unable to access the shell, so please execute these commands manually to push the code:
+
+### Configure Secrets (`.env`)
+Edit your `.env` file with the secrets generated above:
+
+```bash
+GOOGLE_CLIENT_ID=your_client_id
+GOOGLE_CLIENT_SECRET=your_client_secret
+GOOGLE_REFRESH_TOKEN=your_refresh_token
+EMAIL_USER=your_email@gmail.com
+EMAIL_TO=recipient@example.com
+
+KEYSTATIC_GITHUB_CLIENT_ID=github_client_id
+KEYSTATIC_GITHUB_CLIENT_SECRET=github_client_secret
+KEYSTATIC_SECRET=generate_random_string_here
+```
+
+### Push to GitHub
+```bash
+# Initialize Git
+git init
+git add .
+git commit -m "feat: initial migration to Astro/Keystatic"
+
+# Create Repo (Organization: monkeytower-internet-agency)
+# Ensure you are logged in: gh auth login
+gh repo create monkeytower-internet-agency/olaf-klein-de --private --source=. --remote=origin --push
+```
+
+### Deploy to Netlify
+1. Connect via Netlify Dashboard to the new GitHub repo.
+2. **Build Command**: `dist` directory, `npm run build` command.
+3. **Environment**: Copy all contents of `.env` into Netlify Environment Variables.
