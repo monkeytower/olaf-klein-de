@@ -1,0 +1,69 @@
+---
+title: "docs/step-2-keystatic"
+seoTitle: "Step 2: CMS Integration (Keystatic)"
+seoDescription: "Setting up Keystatic for Git-based content management."
+---
+
+# 📝 Step 2: CMS Integration
+
+We use **Keystatic** to manage the website's content. Unlike WordPress, it doesn't need a database. It saves your changes directly to the Git repository as Markdown/Markdoc files.
+
+## 1. Installation
+
+We installed the required packages:
+
+```bash
+npm install @keystatic/core @keystatic/astro
+```
+
+## 2. Configuration
+
+We configured `astro.config.mjs` to include the Keystatic integration:
+
+```javascript
+import keystatic from '@keystatic/astro';
+
+export default defineConfig({
+  output: 'static',
+  integrations: [react(), keystatic(), markdoc()],
+});
+```
+
+## 3. Defining the Schema
+
+The logic lives in `keystatic.config.ts`. Here we define our **Collections** and **Singletons**.
+
+*   **Storage Strategy**:
+    *   **Local**: When running on `localhost`, content is saved to your disk.
+    *   **GitHub**: In production, content is committed to the GitHub repo.
+
+```typescript
+// keystatic.config.ts snippet
+export default config({
+  storage: import.meta.env.PROD
+    ? { kind: 'github', repo: { owner: 'monkeytower', name: 'olaf-klein-de' } }
+    : { kind: 'local' },
+  collections: {
+    pages: collection({
+      label: 'Pages',
+      path: 'src/content/pages/*',
+      schema: {
+        title: fields.slug({ name: { label: 'Title' } }),
+        content: fields.markdoc({ label: 'Content' }),
+      },
+    }),
+    // ...services, portfolio
+  },
+});
+```
+
+## 4. Accessing the Admin UI
+
+Navigate to `/keystatic` in your browser.
+*   **Locally**: It just works.
+*   **Production**: You must log in via GitHub OAuth.
+
+This content drives the entire site. The Dynamic Routes (`[...slug].astro`) read these files and render them as HTML.
+
+---
+👉 [Next: Step 3 - Backend & Security](/docs/step-3-backend)

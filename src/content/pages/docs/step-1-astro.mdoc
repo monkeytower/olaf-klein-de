@@ -1,0 +1,63 @@
+---
+title: "docs/step-1-astro"
+seoTitle: "Step 1: Astro & Local Setup"
+seoDescription: "Initializing the Astro project and installing dependencies."
+---
+
+# 🚀 Step 1: Astro & Local Setup
+
+The foundation of our project is **Astro**. It allows us to build a website that ships zero JavaScript to the client by default, ensuring maximum performance.
+
+## 1. Prerequisites
+
+Ensure you have the following installed:
+*   **Node.js** (v18.14.1 or higher)
+*   **Text Editor** (VS Code recommended)
+*   **Terminal**
+
+## 2. Initialization
+
+We started by creating a new Astro project using the command line:
+
+```bash
+npm create astro@latest olaf-klein-de
+```
+
+**Configuration Choices:**
+*   **Template**: Minimal (clean slate)
+*   **TypeScript**: Strict (for type safety)
+*   **Dependencies**: Yes
+*   **Git**: Yes
+
+## 3. Adding Key Integrations
+
+Astro has a powerful CLI to add features. We installed **Tailwind CSS** for styling and **React** (required for the Keystatic admin UI).
+
+```bash
+npx astro add tailwind react partytown
+```
+
+*Note: partytown is optional, used for moving third-party scripts off the main thread.*
+
+## 4. Project Structure
+
+The structure is simple:
+
+*   `src/pages`: Routes (pages) of the website.
+*   `src/layouts`: Reusable page wrappers (Header, Footer).
+*   `src/components`: UI elements (Buttons, Forms).
+*   `src/content`: The database for our CMS (Markdown/Markdoc files).
+*   `public`: Static assets (fonts, icons).
+
+## 5. Running Locally
+
+To start the development server:
+
+```bash
+npm run dev
+```
+
+The site will be available at `http://localhost:4321`.
+
+---
+👉 [Next: Step 2 - CMS Integration](/docs/step-2-keystatic)

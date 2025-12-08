@@ -1,0 +1,45 @@
+---
+title: "docs/step-3-backend"
+seoTitle: "Step 3: Backend & Security"
+seoDescription: "Sending emails with Gmail API and protecting forms with Cloudflare Turnstile."
+---
+
+# 🛡️ Step 3: Backend & Security
+
+Since this is a static site (HTML/CSS), we can't send emails directly from the browser. We need a "Serverless Function" that runs in the cloud. We also need to block bots.
+
+## 1. The API Route
+
+We created `src/pages/api/send-mail.ts`. This file exports a `POST` function that handles form submissions.
+
+Key feature:
+```typescript
+export const prerender = false; // Forces server-side execution
+```
+
+## 2. Anti-Spam (Cloudflare Turnstile)
+
+We integrated **Cloudflare Turnstile**, a smart CAPTCHA that doesn't annoy users with puzzles.
+
+1.  **Frontend**: Added the widget to `ContactForm.astro`.
+    ```html
+    <div class="cf-turnstile" data-sitekey={...}></div>
+    ```
+2.  **Backend**: We verify the token before sending the email.
+    ```typescript
+    const result = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', ...);
+    if (!result.success) throw new Error('Bot detected');
+    ```
+
+## 3. Gmail Integration
+
+To avoid spam folders, we don't use generic SMTP. We use the **Gmail API** with **OAuth2**.
+
+*   We registered an App in the **Google Cloud Console**.
+*   We generated a Refresh Token (via OAuth Playground).
+*   The code uses `googleapis` and `nodemailer` to authenticate and dispatch the message.
+
+This ensures high deliverability and security, as our actual password is never stored – only a revocable token.
+
+---
+👉 [Next: Step 4 - Deployment](/docs/step-4-deployment)

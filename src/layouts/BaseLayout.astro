@@ -1,12 +1,14 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
+import Navigation from "../components/ui/Navigation.astro";
 
 interface Props {
   title?: string;
   description?: string;
 }
 
-const { title = "Olaf Klein", description = "Webseite von Olaf Klein" } = Astro.props;
+const { title = "Olaf Klein", description = "Webseite von Olaf Klein" } =
+  Astro.props;
 ---
 
 <!doctype html>
@@ -18,17 +20,23 @@ const { title = "Olaf Klein", description = "Webseite von Olaf Klein" } = Astro.
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
     <meta name="description" content={description} />
-    
+
     <!-- Google Fonts: Archivo -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
-  <body class="bg-body text-secondary font-sans antialiased min-h-screen flex flex-col">
+  <body
+    class="bg-body text-secondary font-sans antialiased min-h-screen flex flex-col"
+  >
+    <Navigation />
     <main class="flex-grow">
       <slot />
     </main>
-    
+
     <footer class="py-8 text-center text-sm opacity-60">
       <p>&copy; {new Date().getFullYear()} Olaf Klein. All rights reserved.</p>
     </footer>

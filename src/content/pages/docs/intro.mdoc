@@ -1,0 +1,49 @@
+---
+title: "docs/intro"
+seoTitle: "Project Documentation: Introduction"
+seoDescription: "Overview of the Olaf Klein project migration to Jamstack."
+---
+
+# 📘 Project Documentation
+
+Welcome to the comprehensive documentation for the **Olaf Klein** website project. This guide details how we migrated from a legacy system to a modern, high-performance **Jamstack** architecture.
+
+## 🎯 Goal
+To create a fast, secure, and easily manageable website using best-in-class open source technologies.
+
+## 🛠️ Tech Stack
+
+We selected this stack for its performance, developer experience, and cost-efficiency (free tier friendly):
+
+-   **[Astro](https://astro.build)**: The web framework. Optimized for static content and speed.
+-   **[Tailwind CSS](https://tailwindcss.com)**: A utility-first CSS framework for rapid UI development.
+-   **[Keystatic](https://keystatic.com)**: A Git-based Content Management System (CMS). No database required.
+-   **[Netlify](https://netlify.com)**: Hosting platform and serverless backend functions.
+-   **[Google Gmail API](https://developers.google.com/gmail/api)**: For sending emails securely via OAuth2 / backend.
+-   **[Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/)**: Privacy-focused CAPTCHA alternative to block spam.
+
+## 📚 Documentation Structure
+
+Follow these steps to understand or recreate the setup:
+
+1.  [**Step 1: Astro & Local Setup**](/docs/step-1-astro)
+    *   Setting up the project, installing dependencies, and running the dev server.
+2.  [**Step 2: CMS Integration**](/docs/step-2-keystatic)
+    *   Configuring Keystatic for content management via GitHub.
+3.  [**Step 3: Backend & Security**](/docs/step-3-backend)
+    *   Implementing the email API and adding Turnstile protection.
+4.  [**Step 4: Deployment**](/docs/step-4-deployment)
+    *   Going live on Netlify and configuring environment variables.
+
+---
+
+## 🚀 Getting Started
+
+If you have downloaded this repository, you can start the project locally with:
+
+```bash
+npm install
+npm run dev
+```
+
+Visit `http://localhost:4321` to see the site.
