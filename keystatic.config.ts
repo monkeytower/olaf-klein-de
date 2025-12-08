@@ -5,7 +5,7 @@ export default config({
     ? {
         kind: 'github',
         repo: {
-          owner: 'olafklein', // Placeholder, to be updated
+          owner: 'monkeytower-internet-agency',
           name: 'olaf-klein-de',
         },
       }
