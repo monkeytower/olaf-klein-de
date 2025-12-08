@@ -1,0 +1,57 @@
+---
+title: "setup-step-3-backend"
+seoTitle: "Schritt 3: Backend & Sicherheit"
+seoDescription: "Kontaktformular mit Gmail API und Spamschutz."
+---
+
+# 🛡️ Schritt 3: E-Mail & Spamschutz
+
+Statische Seiten können keine E-Mails versenden. Wir brauchen eine kleine **Server-Funktion**. Und wir hassen Spam, also bauen wir eine **Firewall** (Cloudflare Turnstile) davor.
+
+## 1. Die API Route
+
+Erstelle `src/pages/api/send-mail.ts`. Diese Datei wird auf dem Server ausgeführt, nicht im Browser des Nutzers.
+
+Wichtig ist dieser Befehl ganz oben in der Datei:
+```typescript
+export const prerender = false;
+```
+Das sagt Astro: "Baue diese Seite nicht beim Start, sondern führe sie live aus, wenn jemand das Formular absendet."
+
+## 2. Cloudflare Turnstile (Spamschutz)
+
+Gehe auf [Cloudflare Turnstile](https://dash.cloudflare.com/) und hole dir zwei Schlüssel:
+1.  **Site Key** (Öffentlich)
+2.  **Secret Key** (Geheim)
+
+Trage sie in deine `.env` Datei ein.
+
+In deinem Formular (`ContactForm.astro`) fügst du das Widget ein:
+```html
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div class="cf-turnstile" data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}></div>
+```
+
+## 3. Gmail Anbindung
+
+Um Mails zu senden, nutzen wir nicht SMTP (unsicher), sondern die **Google API (OAuth2)**. Das ist der Gold-Standard.
+
+Du musst ein Projekt in der [Google Cloud Console](https://console.cloud.google.com/) erstellen und die **Gmail API** aktivieren.
+
+### Der Code
+In `send-mail.ts` prüfen wir erst den Turnstile-Token und dann senden wir die Mail:
+
+```typescript
+// 1. Prüfe Spamschutz
+const turnstileVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', ...);
+if (!turnstileVerify.success) return Error;
+
+// 2. Sende Mail via Google
+const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
+await gmail.users.messages.send({ ... });
+```
+
+Damit landen Nachrichten direkt und sicher in deinem Postfach – ohne dass deine echte E-Mail-Adresse auf der Webseite steht (Schutz vor Scrapern!).
+
+---
+👉 [Weiter zu Schritt 4: Deployment](/setup-step-4-deployment)

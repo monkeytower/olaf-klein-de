@@ -35,6 +35,30 @@ export const POST: APIRoute = async ({ request, redirect }) => {
       return new Response('Server Configuration Error', { status: 500 });
     }
 
+    // 1.5. Validate Cloudflare Turnstile
+    const turnstileToken = data.get('cf-turnstile-response') as string;
+    const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
+
+    if (turnstileSecret && turnstileToken) {
+      const turnstileVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          secret: turnstileSecret,
+          response: turnstileToken,
+        }),
+      });
+
+      const turnstileResult = await turnstileVerify.json();
+      if (!turnstileResult.success) {
+        return new Response('Human verification failed. Please try again.', { status: 400 });
+      }
+    } else if (turnstileSecret && !turnstileToken) {
+       return new Response('Human verification missing. Please try again.', { status: 400 });
+    }
+
     // 2. Authenticate with Gmail
     const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret);
     oAuth2Client.setCredentials({ refresh_token: refreshToken });

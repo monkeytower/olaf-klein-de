@@ -36,8 +36,8 @@ This App authorizes Keystatic to write content to your repository.
 2.  **Basic Information**:
     *   **GitHub App name**: `Olaf Klein CMS` (Must be globally unique. If taken, try `Olaf Klein CMS - Monkeytower`).
     *   **Homepage URL**: `https://olaf-klein.de` (Your production domain).
-    *   **Callback URL**: `https://olaf-klein.de/keystatic/oauth/callback`
-        *   (Crucial for Dev) Add: `http://localhost:4321/keystatic/oauth/callback` (Use "Add Callback URL" button or separated by comma).
+    *   **Callback URL**: `https://olaf-klein.de/api/keystatic/github/oauth/callback`
+        *   (Crucial for Dev) Add: `http://localhost:4321/api/keystatic/github/oauth/callback` (Use "Add Callback URL" button or separated by comma).
     *   **Webhook**: 
         *   **Active**: ❌ **Uncheck this** (Disable it).
 
@@ -57,21 +57,29 @@ This App authorizes Keystatic to write content to your repository.
     *   This is a random password used to secure your login cookies. It is not provided by GitHub; you create it yourself.
     *   **Terminal Command**: Run `openssl rand -hex 32` in your terminal.
     *   **Result**: Copy the output (a long random string like `a1b2c3...`) to `.env` (`KEYSTATIC_SECRET`).
-    *   *Alternative*: Just type a very long random string of letters and numbers (at least 32 chars).
 
-6.  **Install (The Tricky Part)**:
+6.  **Install**:
     *   In the sidebar (left), click **Install App**.
-    *   **Scenario A**: You see the Organization (`Monkeytower Internet Agency`) in the list.
-        *   Click `Install` next to it.
-    *   **Scenario B**: You ONLY see your personal account.
-        *   This means you are not an "Owner" of the Org, OR the Org has restricted third-party app installations.
-        *   *Fix*: Install it on your **Personal Account** invalidly? No, check if the repo is successfully in `monkeytower-internet-agency`.
-        *   *Alternative*: Go to the Organization's Settings > GitHub Apps to create it directly there if you have permissions.
-        *   *Most Likely*: You just need to grant access. If you install on your personal account, it might not see the Org repo. **Make sure the Repo exists first!**
+    *   Select your account and install on the `olaf-klein-de` repository.
 
 ---
 
-## 3. Netlify Deployment
+## 3. Cloudflare Turnstile Setup (Captcha)
+To protect the contact form from spam using Cloudflare Turnstile:
+
+1.  **Account**: Log in to [Cloudflare Dashboard](https://dash.cloudflare.com/) > **Turnstile**.
+2.  **Add Site**:
+    *   Click **Add Site**.
+    *   **Site Name**: `Olaf Klein Website`.
+    *   **Domain**: `olaf-klein.de` (add `localhost` for testing).
+    *   **Widget Mode**: **Managed** (Recommended) or **Invisible**.
+3.  **Get Keys**:
+    *   **Site Key**: Copy to `.env` as `PUBLIC_TURNSTILE_SITE_KEY`.
+    *   **Secret Key**: Copy to `.env` as `TURNSTILE_SECRET_KEY`.
+
+---
+
+## 4. Netlify Deployment
 1.  **Log in** to [Netlify Dashboard](https://app.netlify.com).
 2.  **Add New Site** > **Import an existing project**.
 3.  **Connect to Git** > **GitHub**.
@@ -82,5 +90,5 @@ This App authorizes Keystatic to write content to your repository.
     *   **Publish directory**: `dist`
 6.  **Environment Variables**:
     *   Click `Add environment variables`.
-    *   Paste all `.env` values (`GOOGLE_...`, `KEYSTATIC_...`).
+    *   Paste all `.env` values (Google, Keystatic, Turnstile).
 7.  **Deploy**.

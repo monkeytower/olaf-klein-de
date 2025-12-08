@@ -5,6 +5,8 @@ import react from '@astrojs/react';
 import netlify from '@astrojs/netlify';
 import keystatic from '@keystatic/astro';
 
+import markdoc from '@astrojs/markdoc';
+
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
@@ -12,6 +14,6 @@ export default defineConfig({
     plugins: [tailwindcss()]
   },
 
-  integrations: [react(), keystatic()],
+  integrations: [react(), keystatic(), markdoc()],
   adapter: netlify()
 });

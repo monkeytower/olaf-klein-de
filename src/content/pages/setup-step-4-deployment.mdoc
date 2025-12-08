@@ -1,0 +1,56 @@
+---
+title: "setup-step-4-deployment"
+seoTitle: "Schritt 4: Deployment auf Netlify"
+seoDescription: "Automatisches Veröffentlichen via Git und Netlify."
+---
+
+# 🌍 Schritt 4: Live gehen
+
+Deine Seite läuft lokal. Jetzt bringen wir sie ins Internet. Wir nutzen **Netlify**, weil es unglaublich einfach und schnell ist.
+
+## 1. Code auf GitHub laden
+
+Erstelle ein Repository auf GitHub und lade deinen Code hoch (`git push`).
+
+## 2. GitHub App installieren
+
+Damit Keystatic (das CMS) auf deiner Live-Seite funktioniert, musst du eine **GitHub App** erstellen.
+*   Gehe zu GitHub Developer Settings.
+*   Erstelle eine App mit Berechtigung `Contents: Read & Write`.
+*   Installiere sie in deinem Repository.
+
+## 3. Netlify verbinden
+
+1.  Logge dich bei Netlify ein.
+2.  Klicke "New site from Git".
+3.  Wähle dein GitHub Repository aus.
+
+Netlify erkennt automatisch, dass es ein Astro-Projekt ist!
+
+## 4. Die Geheimnisse (Environment Variables)
+
+Erinnerst du dich an `.env`? Diese Datei wird (aus Sicherheitsgründen) **nicht** auf GitHub hochgeladen.
+Du musst diese Werte manuell bei Netlify eintragen:
+
+*   `Site configuration` -> `Environment variables`.
+*   Kopiere alles: `GOOGLE_CLIENT_ID`, `TURNSTILE_SECRET_KEY`, `KEYSTATIC_SECRET`, etc.
+
+## 5. Deploy triggers
+
+Drücke auf **Deploy**.
+
+Netlify baut jetzt deine Seite. Es führt `npm run build` aus, optimiert alle Bilder und verteilt sie auf Server weltweit.
+
+In weniger als einer Minute ist deine Seite unter `deine-seite.netlify.app` erreichbar! 🚀
+
+---
+
+# 🎉 Fertig!
+
+Du hast es geschafft. Eine moderne, sichere und rasend schnelle Webseite.
+
+### Wie geht es weiter?
+*   Logge dich unter `/keystatic` ein und bearbeite deine Texte.
+*   Sobald du speicherst, aktualisiert Netlify die Seite automatisch.
+
+Willkommen im **Jamstack**.
