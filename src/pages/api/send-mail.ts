@@ -1,0 +1,79 @@
+import type { APIRoute } from 'astro';
+import { google } from 'googleapis';
+import MailComposer from 'nodemailer/lib/mail-composer';
+
+export const POST: APIRoute = async ({ request, redirect }) => {
+  const data = await request.formData();
+  
+  // 1. Invisible Honeypot Security
+  const botField = data.get('bot-field');
+  if (botField) {
+    // Silently success for bots (Shadowban)
+    return new Response(JSON.stringify({ message: 'Message sent successfully.' }), { status: 200 });
+  }
+
+  const name = data.get('name') as string;
+  const email = data.get('email') as string;
+  const message = data.get('message') as string;
+
+  if (!name || !email || !message) {
+    return new Response('All fields are required.', { status: 400 });
+  }
+
+  try {
+    const clientId = import.meta.env.GOOGLE_CLIENT_ID;
+    const clientSecret = import.meta.env.GOOGLE_CLIENT_SECRET;
+    const refreshToken = import.meta.env.GOOGLE_REFRESH_TOKEN;
+    const user = import.meta.env.EMAIL_USER; // Verified Sender
+    const to = import.meta.env.EMAIL_TO;
+
+    if (!clientId || !clientSecret || !refreshToken || !user || !to) {
+      console.error('Missing Environment Variables for Email Service');
+      return new Response('Server Configuration Error', { status: 500 });
+    }
+
+    // 2. Authenticate with Gmail
+    const oAuth2Client = new google.auth.OAuth2(clientId, clientSecret);
+    oAuth2Client.setCredentials({ refresh_token: refreshToken });
+
+    // 3. Construct MIME Message
+    const mail = new MailComposer({
+      from: `"${name}" <${user}>`,
+      to: to,
+      replyTo: email,
+      subject: `New Message from ${name} (Olaf Klein Website)`,
+      text: `From: ${name} (${email})\n\n${message}`,
+      html: `
+        <div style="font-family: sans-serif; color: #333;">
+          <h2>New Message from Website</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <hr/>
+          <p>${message.replace(/\n/g, '<br/>')}</p>
+        </div>
+      `
+    });
+
+    const messageBuffer = await mail.compile().build();
+    const encodedMessage = messageBuffer.toString('base64')
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+      .replace(/=+$/, '');
+
+    // 4. Send via Gmail API
+    const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
+    await gmail.users.messages.send({
+      userId: 'me',
+      requestBody: {
+        raw: encodedMessage
+      }
+    });
+
+    // 5. Success
+    return redirect('/?success=true');
+
+  } catch (error) {
+    console.error('Email Send Error:', error);
+    return new Response('Failed to send email. Please try again later.', { status: 500 });
+  }
+};
