@@ -2,6 +2,9 @@ import type { APIRoute } from 'astro';
 import { google } from 'googleapis';
 import MailComposer from 'nodemailer/lib/mail-composer';
 
+// Force server-side functionality
+export const prerender = false;
+
 export const POST: APIRoute = async ({ request, redirect }) => {
   const data = await request.formData();
   
