@@ -53,7 +53,13 @@ This App authorizes Keystatic to write content to your repository.
     *   Copy **Client ID** -> `.env` (`KEYSTATIC_GITHUB_CLIENT_ID`).
     *   Generate & Copy **Client Secret** -> `.env` (`KEYSTATIC_GITHUB_CLIENT_SECRET`).
 
-5.  **Install (The Tricky Part)**:
+5.  **Generating KEYSTATIC_SECRET (Session Key)**:
+    *   This is a random password used to secure your login cookies. It is not provided by GitHub; you create it yourself.
+    *   **Terminal Command**: Run `openssl rand -hex 32` in your terminal.
+    *   **Result**: Copy the output (a long random string like `a1b2c3...`) to `.env` (`KEYSTATIC_SECRET`).
+    *   *Alternative*: Just type a very long random string of letters and numbers (at least 32 chars).
+
+6.  **Install (The Tricky Part)**:
     *   In the sidebar (left), click **Install App**.
     *   **Scenario A**: You see the Organization (`Monkeytower Internet Agency`) in the list.
         *   Click `Install` next to it.
