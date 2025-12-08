@@ -1,64 +1,80 @@
-# 📚 Expanded Setup & Deployment Guide
+# 📚 Complete Deployment Guide
 
-## 1. Keystatic GitHub App Setup (Detailed)
+## 1. Google OAuth2 Setup (Gmail Sending)
+To enable the contact form to send emails via your Gmail account:
+
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. Create a new Project (e.g., `olaf-klein-mailer`).
+3. **Enable API**: Search for "Gmail API" and enable it.
+4. **OAuth Consent Screen**:
+   - User Type: **External**.
+   - App Name: "Olaf Klein Website".
+   - Support Email: Your email.
+   - Initial Test Users: Add the email address you plan to send from.
+5. **Credentials**:
+   - Click "Create Credentials" -> "OAuth client ID".
+   - Application Type: **Web application**.
+   - **Authorized Redirect URIs**: `https://developers.google.com/oauthplayground` (Temporary, for generating the token).
+6. **Get Tokens**:
+   - Copy `Client ID` and `Client Secret` to your `.env` file.
+   - Go to [OAuth 2.0 Playground](https://developers.google.com/oauthplayground).
+   - Settings (Gear icon): Check "Use your own OAuth credentials" and paste ID/Secret.
+   - Select Scopes: `https://mail.google.com/`.
+   - Click "Authorize APIs".
+   - Exchange authorization code for tokens.
+   - **Result**: Copy the `Refresh Token` to your `.env` file.
+
+---
+
+## 2. Keystatic GitHub App Setup (CMS)
 This App authorizes Keystatic to write content to your repository.
 
 1.  **Navigate**: Go to [GitHub Developer Settings > GitHub Apps](https://github.com/settings/apps).
-2.  **Click**: `New GitHub App`.
-3.  **Basic Information**:
+    *   *Troubleshooting*: If you created the App on your **personal** account but the repo is in the **Organization**, that is fine! You just need to install it on the Organization.
+    *   *If you want ownership in the Org*: Switch context to the Organization before creating the App (Click your profile photo > "Your organizations" > Select Org > Settings > Developer settings).
+
+2.  **Basic Information**:
     *   **GitHub App name**: `Olaf Klein CMS` (Must be globally unique. If taken, try `Olaf Klein CMS - Monkeytower`).
     *   **Homepage URL**: `https://olaf-klein.de` (Your production domain).
-    *   **Callback URL**:
-        *   This is CRITICAL. You must add **both** your Production and Localhost URLs separated by a comma (or add them one by one).
-        *   Value: `https://olaf-klein.de/keystatic/oauth/callback`
-        *   (Crucial for Dev) Add: `http://localhost:4321/keystatic/oauth/callback`
+    *   **Callback URL**: `https://olaf-klein.de/keystatic/oauth/callback`
+        *   (Crucial for Dev) Add: `http://localhost:4321/keystatic/oauth/callback` (Use "Add Callback URL" button or separated by comma).
     *   **Webhook**: 
-        *   **Active**: ❌ **Uncheck this** (Disable it). We do not need webhooks for this integration, and enabled webhooks without a listener will just cause errors.
+        *   **Active**: ❌ **Uncheck this** (Disable it).
 
-4.  **Permissions (The "Endless" List)**:
-    Ignor most of them. You only need to touch **Repository permissions**:
-    *   **Contents**: Change to `Read and write`. (Allows creating/editing pages).
-    *   **Pull requests**: Change to `Read and write`. (Allows creating branches/PRs if you choose that mode).
-    *   **Metadata**: This is `Read-only` by default. Leave it.
-    *   **Leave everything else as "No access".**
+3.  **Permissions**:
+    *   **Repository permissions**:
+        *   **Contents**: Change to `Read and write`.
+        *   **Pull requests**: Change to `Read and write`.
+        *   **Metadata**: `Read-only` (default).
+        *   *All others*: `No access`.
 
-5.  **Create**: Click `Create GitHub App`.
-6.  **Capture Secrets**:
-    *   You will see **App ID** and **Client ID**. Copy the **Client ID** to your `.env` as `KEYSTATIC_GITHUB_CLIENT_ID`.
-    *   Scroll down to "Client secrets". Click `Generate a new client secret`. Copy this **immediately** to your `.env` as `KEYSTATIC_GITHUB_CLIENT_SECRET`.
+4.  **Create & Secrets**:
+    *   Click `Create GitHub App`.
+    *   Copy **Client ID** -> `.env` (`KEYSTATIC_GITHUB_CLIENT_ID`).
+    *   Generate & Copy **Client Secret** -> `.env` (`KEYSTATIC_GITHUB_CLIENT_SECRET`).
 
-7.  **Install**:
+5.  **Install (The Tricky Part)**:
     *   In the sidebar (left), click **Install App**.
-    *   Click `Install` next to your account/organization (`Monkeytower Internet Agency`).
-    *   **Repository Access**: Select "Only select repositories" and choose `olaf-klein-de`. (Security best practice).
-    *   Click `Install`.
+    *   **Scenario A**: You see the Organization (`Monkeytower Internet Agency`) in the list.
+        *   Click `Install` next to it.
+    *   **Scenario B**: You ONLY see your personal account.
+        *   This means you are not an "Owner" of the Org, OR the Org has restricted third-party app installations.
+        *   *Fix*: Install it on your **Personal Account** invalidly? No, check if the repo is successfully in `monkeytower-internet-agency`.
+        *   *Alternative*: Go to the Organization's Settings > GitHub Apps to create it directly there if you have permissions.
+        *   *Most Likely*: You just need to grant access. If you install on your personal account, it might not see the Org repo. **Make sure the Repo exists first!**
 
 ---
 
-## 2. Netlify Deployment (Step-by-Step)
-1.  **Log in** to your [Netlify Dashboard](https://app.netlify.com).
-2.  **Add New Site**:
-    *   Click `Add new site` > `Import an existing project`.
-3.  **Connect to Git**:
-    *   Select **GitHub**.
-    *   A popup will appear asking to authorize Netlify. Click `Authorize monkeytower-internet-agency` (or your user).
-4.  **Pick Repository**:
-    *   Search for `olaf-klein-de`. Click it.
-5.  **Build Settings** (Astro presets should auto-fill this, but verify):
-    *   **Base directory**: (Leave empty).
+## 3. Netlify Deployment
+1.  **Log in** to [Netlify Dashboard](https://app.netlify.com).
+2.  **Add New Site** > **Import an existing project**.
+3.  **Connect to Git** > **GitHub**.
+    *   Authorize access. If you don't see the Org, check "Grant access" in the GitHub pop-up.
+4.  **Pick Repository**: `olaf-klein-de`.
+5.  **Build Settings**:
     *   **Build command**: `npm run build`
     *   **Publish directory**: `dist`
-6.  **Environment Variables** (The most important step):
+6.  **Environment Variables**:
     *   Click `Add environment variables`.
-    *   You must paste **every single key-value pair** from your local `.env` file here.
-    *   Click `Add variable` for each one (`GOOGLE_CLIENT_ID`, `KEYSTATIC_SECRET`, etc.).
-    *   *Tip: Netlify has a "Bulk Edit" feature where you can paste the whole file content at once.*
-7.  **Deploy**: Click `Deploy monkeytower-internet-agency/olaf-klein-de`.
-
----
-
-## 3. Google OAuth2 (Quick Recap)
-Refer to the simplified logic:
-*   **Redirect URI**: `https://developers.google.com/oauthplayground`
-*   **Scopes**: `https://mail.google.com/`
-*   **Goal**: Get the `Refresh Token` so your server can always act as you.
+    *   Paste all `.env` values (`GOOGLE_...`, `KEYSTATIC_...`).
+7.  **Deploy**.
