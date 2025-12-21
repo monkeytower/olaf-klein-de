@@ -42,13 +42,13 @@ const { Content } = await entry.render();
 
     {/* Content */}
     <article
-      class="prose prose-lg prose-slate prose-headings:font-heading prose-headings:font-bold prose-headings:uppercase prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none"
+      class="prose prose-lg prose-slate dark:prose-invert prose-headings:font-heading prose-headings:font-bold prose-headings:uppercase prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none"
     >
       <Content />
     </article>
 
     {/* Page Footer / Next Steps */}
-    <hr class="my-12 border-secondary/10" />
+    <hr class="my-12 border-[var(--border-color)]" />
 
     <div class="flex justify-between items-center opacity-60 text-sm">
       <span>&copy; Olaf Klein</span>

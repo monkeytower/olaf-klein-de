@@ -7,147 +7,115 @@ import config from "../../keystatic.config";
 // Initialize Keystatic Reader
 const reader = createReader(process.cwd(), config);
 
-// Fetch Data
-const homeData = await reader.singletons.home.read();
+// Fetch Data (using settings for site title)
 const settings = await reader.singletons.settings.read();
 
 const siteTitle = settings?.siteTitle || "Olaf Klein";
-
-// Override or Fallback
-// User requested: "Contact page Olaf Klein" as main headline, "Caveman with an iPhone" as subheadline.
-// I will use these defaults, but allow Keystatic content to override if explicitly set in the future.
-// However, the prompt implies a design change now, so I will prioritize the new design text.
-
 const headline = "Contact page Olaf Klein";
 const subheadline = "Caveman with an iPhone";
-const tagline = "Think different.";
 ---
 
 <BaseLayout title={siteTitle} description={subheadline}>
-  <div
-    class="relative min-h-screen flex flex-col items-center overflow-hidden bg-white text-secondary selection:bg-primary selection:text-white"
-  >
-    {/* Decorative Background Elements */}
+  <div class="relative min-h-screen overflow-hidden">
+    {/* Clean Background with very subtle texture */}
     <div
-      class="absolute top-0 left-0 w-full h-[50vh] bg-gradient-to-b from-slate-50 to-transparent pointer-events-none -z-10"
-    >
-    </div>
-    <div
-      class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-primary/5 blur-[120px] pointer-events-none"
+      class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff11_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.4] pointer-events-none"
     >
     </div>
 
     <div
-      class="w-full max-w-7xl mx-auto px-6 py-20 md:px-12 lg:py-32 flex flex-col md:flex-row items-center justify-between gap-16 md:gap-8"
+      class="relative max-w-7xl mx-auto px-6 py-12 md:px-12 lg:py-24 grid lg:grid-cols-2 gap-16 items-start"
     >
-      {/* Visual / Text Section */}
-      <div class="flex-1 text-center md:text-left z-10">
-        <h6
-          class="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-primary animate-fade-in-up"
-        >
-          {tagline}
-        </h6>
-        <h1
-          class="font-heading text-5xl font-black tracking-tighter leading-[1.1] md:text-7xl lg:text-8xl mb-6 text-secondary animate-fade-in-up delay-100"
-        >
-          {
-            headline
-              .split(" ")
-              .map((word, i) => <span class="block">{word}</span>)
-          }
-        </h1>
-        <p
-          class="text-xl md:text-2xl font-light opacity-60 leading-relaxed max-w-lg mx-auto md:mx-0 animate-fade-in-up delay-200"
-        >
-          {subheadline}
-        </p>
+      {/* Hero Section */}
+      <div class="space-y-12">
+        <div class="space-y-4">
+          <h1
+            class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9]"
+          >
+            {
+              headline
+                .split(" ")
+                .map((word) => <span class="block">{word}</span>)
+            }
+          </h1>
+          <p
+            class="text-2xl md:text-3xl text-slate-400 dark:text-slate-500 font-medium tracking-tight"
+          >
+            {subheadline}
+          </p>
+        </div>
 
-        <div
-          class="mt-12 flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 animate-fade-in-up delay-300"
-        >
+        {/* WhatsApp Buttons - Restored & High Contrast */}
+        <div class="flex flex-col sm:flex-row gap-4">
           <a
             href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative overflow-hidden rounded-full bg-secondary px-8 py-4 font-bold text-white transition-all hover:bg-primary hover:shadow-xl hover:shadow-primary/20"
+            class="flex items-center justify-center gap-3 px-8 py-5 bg-[#25D366] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-[1.02] hover:shadow-xl hover:shadow-[#25D366]/20 transition-all active:scale-95"
           >
-            <span class="relative z-10 flex items-center gap-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="opacity-80"
-                ><path
-                  d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.231-.298.347-.497.116-.198.058-.371-.029-.544-.087-.174-.785-1.892-1.075-2.592-.285-.685-.574-.593-.79-.604l-.67-.011c-.229 0-.6.086-.914.43-.314.343-1.194 1.168-1.194 2.851 0 1.683 1.225 3.31 1.396 3.538.17.23 2.41 3.684 5.836 5.163 2.01.868 2.798.803 3.316.732.69-.094 1.76-1.166 2.008-2.293.248-1.127.248-2.093.174-2.217-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"
-                ></path></svg
-              >
-              WhatsApp Call
-            </span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-phone"
+              ><path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              ></path></svg
+            >
+            WhatsApp Call
           </a>
-
           <a
             href="https://wa.me/491772688999"
             target="_blank"
             rel="noopener noreferrer"
-            class="group relative overflow-hidden rounded-full border border-secondary/20 bg-transparent px-8 py-4 font-bold text-secondary transition-all hover:border-black hover:bg-black hover:text-white"
+            class="flex items-center justify-center gap-3 px-8 py-5 border-4 border-[var(--text-color)] text-[var(--text-color)] rounded-2xl font-black uppercase tracking-widest hover:bg-[var(--text-color)] hover:text-[var(--bg-color)] transition-all active:scale-95"
           >
-            <span class="relative z-10">Chat Only</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide lucide-message-square"
+              ><path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              ></path></svg
+            >
+            WhatsApp Chat
           </a>
         </div>
       </div>
 
       {/* Form Section */}
-      <div class="w-full max-w-md flex-1 animate-fade-in-up delay-500">
+      <div class="relative">
         <div
-          class="relative overflow-hidden rounded-3xl bg-white/70 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.1)] backdrop-blur-xl border border-white/50"
+          class="bg-[var(--bg-color)] p-8 md:p-12 rounded-[2.5rem] border-4 border-[var(--text-color)] shadow-[16px_16px_0px_0px_var(--text-color)] dark:shadow-[16px_16px_0px_0px_rgba(255,255,255,0.1)] transition-all overflow-hidden"
         >
-          <div
-            class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-primary to-secondary"
-          >
+          <div class="space-y-2 mb-10">
+            <h3 class="text-3xl font-black uppercase tracking-tight">
+              Get in touch
+            </h3>
+            <div class="h-2 w-20 bg-primary"></div>
           </div>
-          <h3
-            class="mb-8 font-heading text-xl font-bold uppercase text-secondary/80 tracking-widest"
-          >
-            Get in touch
-          </h3>
           <ContactForm />
+        </div>
+
+        {/* Decorative elements behind form */}
+        <div
+          class="absolute -top-6 -right-6 w-full h-full border-4 border-[var(--border-color)] rounded-[2.5rem] -z-10"
+        >
         </div>
       </div>
     </div>
   </div>
-
-  <style>
-    /* Simple Animation Utilities */
-    .animate-fade-in-up {
-      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .delay-100 {
-      animation-delay: 0.1s;
-    }
-    .delay-200 {
-      animation-delay: 0.2s;
-    }
-    .delay-300 {
-      animation-delay: 0.3s;
-    }
-    .delay-500 {
-      animation-delay: 0.5s;
-    }
-
-    @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-  </style>
 </BaseLayout>

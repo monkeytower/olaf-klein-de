@@ -1,2 +1,36 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
+
+/* Force class-based dark mode in Tailwind v4 */
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: rgb(18, 150, 211);
+  --color-secondary: rgb(4, 15, 57);
+  --color-body: rgb(255, 255, 255);
+  --color-accent: rgb(0, 143, 255);
+
+  --font-sans: "Archivo", sans-serif;
+  --font-heading: "Archivo", sans-serif;
+}
+
+@layer base {
+  :root {
+    --bg-color: #ffffff;
+    --text-color: #040f39;
+    --border-color: #e2e8f0; /* slate-200 for better visibility */
+  }
+
+  /* Explicitly use .dark class only */
+  :root.dark {
+    --bg-color: #040f39;
+    --text-color: #ffffff;
+    --border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+}
