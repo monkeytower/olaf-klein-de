@@ -19,15 +19,13 @@ const { Content } = await entry.render();
   <div class="max-w-4xl mx-auto px-6 py-12 md:px-12">
     {/* Breadcrumb / Back Link */}
     <nav class="mb-8 opacity-60 hover:opacity-100 transition-opacity">
-      <a href="/" class="text-sm font-bold uppercase tracking-wider"
-        >&larr; Home</a
-      >
+      <a href="/" class="text-sm font-bold">&larr; Home</a>
     </nav>
 
     {/* Header */}
     <header class="mb-12">
       <h1
-        class="font-heading text-4xl font-black uppercase tracking-tight md:text-5xl text-primary mb-4"
+        class="font-heading text-4xl font-bold tracking-tight md:text-5xl text-primary mb-4"
       >
         {entry.data.title}
       </h1>
@@ -42,7 +40,7 @@ const { Content } = await entry.render();
 
     {/* Content */}
     <article
-      class="prose prose-lg prose-slate dark:prose-invert prose-headings:font-heading prose-headings:font-bold prose-headings:uppercase prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none"
+      class="prose prose-lg prose-slate dark:prose-invert prose-headings:font-heading prose-headings:font-bold prose-a:text-primary prose-a:no-underline hover:prose-a:underline max-w-none"
     >
       <Content />
     </article>

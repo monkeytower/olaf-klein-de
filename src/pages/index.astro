@@ -16,7 +16,7 @@ const subheadline = "Caveman with an iPhone";
 ---
 
 <BaseLayout title={siteTitle} description={subheadline}>
-  <div class="relative min-h-screen overflow-hidden">
+  <div class="relative overflow-hidden">
     {/* Clean Background with very subtle texture */}
     <div
       class="absolute inset-0 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] dark:bg-[radial-gradient(#ffffff11_1px,transparent_1px)] [background-size:16px_16px] opacity-[0.4] pointer-events-none"
@@ -24,34 +24,34 @@ const subheadline = "Caveman with an iPhone";
     </div>
 
     <div
-      class="relative max-w-7xl mx-auto px-6 py-12 md:px-12 lg:py-24 grid lg:grid-cols-2 gap-16 items-start"
+      class="relative max-w-7xl mx-auto px-6 py-0 grid lg:grid-cols-2 gap-4 items-start"
     >
       {/* Hero Section */}
-      <div class="space-y-12">
-        <div class="space-y-4">
-          <h1
-            class="text-6xl md:text-8xl font-black tracking-tight leading-[0.9]"
-          >
-            {
-              headline
-                .split(" ")
-                .map((word) => <span class="block">{word}</span>)
-            }
+      <div class="space-y-2 lg:mt-4">
+        <div class="space-y-0">
+          <h1 class="text-2xl md:text-4xl tracking-tight leading-tight">
+            <span
+              class="font-light text-slate-400 dark:text-slate-500 block mb-2"
+              >Contact page</span
+            >
+            <span class="font-bold block text-slate-900 dark:text-white"
+              >Olaf Klein</span
+            >
           </h1>
           <p
-            class="text-2xl md:text-3xl text-slate-400 dark:text-slate-500 font-medium tracking-tight"
+            class="text-sm md:text-base text-slate-400 dark:text-slate-500 font-medium tracking-tight"
           >
             {subheadline}
           </p>
         </div>
 
         {/* WhatsApp Buttons - Restored & High Contrast */}
-        <div class="flex flex-col sm:flex-row gap-4">
+        <div class="flex flex-col sm:flex-row gap-2">
           <a
             href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center gap-3 px-8 py-5 bg-[#25D366] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-[1.02] hover:shadow-xl hover:shadow-[#25D366]/20 transition-all active:scale-95"
+            class="flex items-center justify-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-xl font-bold text-xs tracking-wider transition-all active:scale-95"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -74,7 +74,7 @@ const subheadline = "Caveman with an iPhone";
             href="https://wa.me/491772688999"
             target="_blank"
             rel="noopener noreferrer"
-            class="flex items-center justify-center gap-3 px-8 py-5 border-4 border-[var(--text-color)] text-[var(--text-color)] rounded-2xl font-black uppercase tracking-widest hover:bg-[var(--text-color)] hover:text-[var(--bg-color)] transition-all active:scale-95"
+            class="flex items-center justify-center gap-2 px-6 py-2 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-xs tracking-wider transition-all active:scale-95"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -99,13 +99,11 @@ const subheadline = "Caveman with an iPhone";
       {/* Form Section */}
       <div class="relative">
         <div
-          class="bg-[var(--bg-color)] p-8 md:p-12 rounded-[2.5rem] border-4 border-[var(--text-color)] shadow-[16px_16px_0px_0px_var(--text-color)] dark:shadow-[16px_16px_0px_0px_rgba(255,255,255,0.1)] transition-all overflow-hidden"
+          class="bg-[var(--bg-color)] p-3 rounded-lg border-2 border-[var(--text-color)] shadow-[4px_4px_0px_0px_var(--text-color)] dark:shadow-[4px_4px_0px_0px_rgba(255,255,255,0.1)] transition-all overflow-hidden"
         >
-          <div class="space-y-2 mb-10">
-            <h3 class="text-3xl font-black uppercase tracking-tight">
-              Get in touch
-            </h3>
-            <div class="h-2 w-20 bg-primary"></div>
+          <div class="space-y-0 mb-2">
+            <h3 class="text-sm font-bold tracking-tight">Get in touch</h3>
+            <div class="h-1 w-12 bg-primary"></div>
           </div>
           <ContactForm />
         </div>

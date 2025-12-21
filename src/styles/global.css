@@ -10,8 +10,8 @@
   --color-body: rgb(255, 255, 255);
   --color-accent: rgb(0, 143, 255);
 
-  --font-sans: "Archivo", sans-serif;
-  --font-heading: "Archivo", sans-serif;
+  --font-sans: "Verdana", sans-serif;
+  --font-heading: "Verdana", sans-serif;
 }
 
 @layer base {
