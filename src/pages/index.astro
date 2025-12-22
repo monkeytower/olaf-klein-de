@@ -26,9 +26,9 @@ const subheadline = "Caveman with an iPhone";
     <div
       class="relative max-w-7xl mx-auto px-6 py-8 flex-grow flex items-center"
     >
-      <div class="w-full grid lg:grid-cols-2 gap-12 items-center">
+      <div class="w-full grid lg:grid-cols-2 gap-12 items-stretch">
         {/* Hero Section */}
-        <div class="space-y-2 lg:mt-4 animate-reveal-up">
+        <div class="flex flex-col justify-between py-2 animate-reveal-up">
           <div class="space-y-0">
             <h1 class="text-4xl md:text-6xl tracking-tight leading-tight">
               <span
@@ -44,55 +44,100 @@ const subheadline = "Caveman with an iPhone";
             >
               {subheadline}
             </p>
+            <div class="mt-4 space-y-2">
+              <p class="text-sm font-bold opacity-60">Projects:</p>
+              <ul class="text-sm space-y-1 opacity-80">
+                <li>
+                  <a
+                    href="https://www.monkeytower.net"
+                    class="hover:text-primary transition-colors"
+                    >www.monkeytower.net</a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.paranomad.de"
+                    class="hover:text-primary transition-colors"
+                    >www.paranomad.de</a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.HWK-Essen.de"
+                    class="hover:text-primary transition-colors"
+                    >www.HWK-Essen.de</a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.byteloader.com"
+                    class="hover:text-primary transition-colors"
+                    >www.byteloader.com</a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/monkeytower-internet-agency"
+                    class="hover:text-primary transition-colors"
+                    >github.com/monkeytower-internet-agency</a>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* WhatsApp Buttons - Restored & High Contrast */}
-          <div class="flex flex-col sm:flex-row gap-2">
-            <a
-              href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="flex items-center justify-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-xl font-bold text-xs tracking-wider transition-all hover:brightness-110 hover:shadow-lg active:scale-95"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-phone"
-                ><path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                ></path></svg
+          {/* Buttons Section - Aligned to bottom */}
+          <div class="space-y-2 mt-8 lg:mt-0">
+            <div class="flex flex-col sm:flex-row gap-2">
+              <a
+                href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 flex items-center justify-center gap-2 px-6 py-2 bg-[#25D366] text-white rounded-xl font-bold text-xs tracking-wider transition-all hover:brightness-110 hover:shadow-lg active:scale-95"
               >
-              WhatsApp Call
-            </a>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-phone"
+                  ><path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                  ></path></svg
+                >
+                WhatsApp Call
+              </a>
+              <a
+                href="https://wa.me/491772688999"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex-1 flex items-center justify-center gap-2 px-6 py-2 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-xs tracking-wider transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-message-square"
+                  ><path
+                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                  ></path></svg
+                >
+                WhatsApp Chat
+              </a>
+            </div>
             <a
               href="https://wa.me/491772688999"
               target="_blank"
               rel="noopener noreferrer"
-              class="flex items-center justify-center gap-2 px-6 py-2 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-xs tracking-wider transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
+              class="w-full flex items-center justify-center gap-2 px-6 py-3 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-xs tracking-wider transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-message-square"
-                ><path
-                  d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                ></path></svg
-              >
-              WhatsApp Chat
+              Get Support
             </a>
           </div>
         </div>
