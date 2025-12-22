@@ -2,78 +2,249 @@
 
 ---
 
-<form action="/api/send-mail" method="POST" class="space-y-3">
-  {/* Security: Invisible Honeypot */}
-  <div
-    class="opacity-0 absolute top-0 left-0 h-0 w-0 -z-50 pointer-events-none"
-    aria-hidden="true"
-  >
-    <label for="bot-field">Don't fill this out if you're human:</label>
-    <input
-      type="text"
-      name="bot-field"
-      id="bot-field"
-      tabindex="-1"
-      autocomplete="off"
-    />
+<div id="form-container">
+  <form id="contact-form" class="space-y-3">
+    {/* Security: Invisible Honeypot */}
+    <div
+      class="opacity-0 absolute top-0 left-0 h-0 w-0 -z-50 pointer-events-none"
+      aria-hidden="true"
+    >
+      <label for="bot-field">Don't fill this out if you're human:</label>
+      <input
+        type="text"
+        name="bot-field"
+        id="bot-field"
+        tabindex="-1"
+        autocomplete="off"
+      />
+    </div>
+
+    <div class="space-y-1">
+      <label for="name" class="text-xs font-semibold opacity-60 ml-1">
+        Full Name
+      </label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        required
+        class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
+        placeholder="e.g. John Doe"
+      />
+    </div>
+
+    <div class="space-y-1">
+      <label for="email" class="text-xs font-semibold opacity-60 ml-1">
+        Email Address
+      </label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        required
+        class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
+        placeholder="john@example.com"
+      />
+    </div>
+
+    <div class="space-y-1">
+      <label for="message" class="text-xs font-semibold opacity-60 ml-1">
+        Message
+      </label>
+      <textarea
+        name="message"
+        id="message"
+        rows="3"
+        required
+        class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none"
+        placeholder="How can I help you?"></textarea>
+    </div>
+
+    {/* Security: Cloudflare Turnstile */}
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer></script>
+    <div
+      class="cf-turnstile py-2"
+      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+    >
+    </div>
+
+    <button
+      id="submit-button"
+      type="submit"
+      class="w-full py-3 bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-bold rounded-xl hover:brightness-110 hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+    >
+      <span id="button-text">Send Message</span>
+    </button>
+  </form>
+
+  {/* Success State */}
+  <div id="success-state" class="hidden space-y-6 py-4 animate-reveal-in">
+    <div class="flex flex-col items-center text-center space-y-4">
+      <div
+        class="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center text-green-600 dark:text-green-400"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-check"><path d="M20 6 9 17l-5-5"></path></svg
+        >
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-bold tracking-tight">Message Sent!</h2>
+        <p class="text-slate-500 dark:text-slate-400">
+          Thank you for getting in touch. I'll get back to you shortly.
+        </p>
+      </div>
+    </div>
+
+    <div
+      class="bg-slate-50 dark:bg-white/5 rounded-2xl p-5 space-y-3 border border-[var(--border-color)] text-xs font-mono opacity-80 overflow-auto"
+    >
+      <p class="flex justify-between">
+        <span class="font-bold opacity-60">Message ID:</span>
+        <span id="success-id" class="break-all ml-4"></span>
+      </p>
+      <p class="flex justify-between">
+        <span class="font-bold opacity-60">Timestamp:</span>
+        <span id="success-time"></span>
+      </p>
+    </div>
+
+    <button
+      id="reset-success"
+      class="w-full py-3 border-2 border-[var(--text-color)] text-[var(--text-color)] font-bold rounded-xl hover:bg-[var(--text-color)]/5 transition-all active:scale-95"
+    >
+      one more thing...
+    </button>
   </div>
 
-  <div class="space-y-1">
-    <label for="name" class="text-xs font-semibold opacity-60 ml-1">
-      Full Name
-    </label>
-    <input
-      type="text"
-      name="name"
-      id="name"
-      required
-      class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
-      placeholder="e.g. John Doe"
-    />
-  </div>
+  {/* Error State */}
+  <div id="error-state" class="hidden space-y-6 py-4 animate-reveal-in">
+    <div class="flex flex-col items-center text-center space-y-4">
+      <div
+        class="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600 dark:text-red-400"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="32"
+          height="32"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-x-circle"
+          ><circle cx="12" cy="12" r="10"></circle><path d="m15 9-6 6"
+          ></path><path d="m9 9 6 6"></path></svg
+        >
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl font-bold tracking-tight">Submission Failed</h2>
+        <p id="error-message" class="text-red-500/80"></p>
+      </div>
+    </div>
 
-  <div class="space-y-1">
-    <label for="email" class="text-xs font-semibold opacity-60 ml-1">
-      Email Address
-    </label>
-    <input
-      type="email"
-      name="email"
-      id="email"
-      required
-      class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
-      placeholder="john@example.com"
-    />
-  </div>
+    <div
+      id="error-details"
+      class="bg-slate-50 dark:bg-white/5 rounded-2xl p-5 text-xs font-mono opacity-80 border border-red-200/20"
+    >
+      <p class="flex justify-between">
+        <span class="font-bold opacity-60">Timestamp:</span>
+        <span id="error-time"></span>
+      </p>
+    </div>
 
-  <div class="space-y-1">
-    <label for="message" class="text-xs font-semibold opacity-60 ml-1">
-      Message
-    </label>
-    <textarea
-      name="message"
-      id="message"
-      rows="3"
-      required
-      class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none"
-      placeholder="How can I help you?"></textarea>
+    <button
+      id="reset-error"
+      class="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:brightness-110 transition-all active:scale-95"
+    >
+      Try Again
+    </button>
   </div>
+</div>
 
-  {/* Security: Cloudflare Turnstile */}
-  <script
-    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-    async
-    defer></script>
-  <div
-    class="cf-turnstile py-2"
-    data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
-  >
-  </div>
+<script>
+  const form = document.getElementById("contact-form") as HTMLFormElement;
+  const submitButton = document.getElementById(
+    "submit-button"
+  ) as HTMLButtonElement;
+  const buttonText = document.getElementById("button-text");
 
-  <button
-    type="submit"
-    class="w-full py-3 bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-bold rounded-xl hover:brightness-110 hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer"
-  >
-    Send Message
-  </button>
-</form>
+  const successState = document.getElementById("success-state");
+  const errorState = document.getElementById("error-state");
+
+  const resetSuccess = document.getElementById("reset-success");
+  const resetError = document.getElementById("reset-error");
+
+  const showForm = () => {
+    form?.classList.remove("hidden");
+    successState?.classList.add("hidden");
+    errorState?.classList.add("hidden");
+    form?.reset();
+    // @ts-ignore - Trigger Turnstile reset if available
+    if (window.turnstile) {
+      // @ts-ignore
+      window.turnstile.reset();
+    }
+  };
+
+  form?.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    // UI State
+    if (submitButton) submitButton.disabled = true;
+    if (buttonText) buttonText.innerText = "Sending...";
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch("/api/send-mail", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        // Success Logic
+        form?.classList.add("hidden");
+        successState?.classList.remove("hidden");
+
+        const idEl = document.getElementById("success-id");
+        const timeEl = document.getElementById("success-time");
+
+        if (idEl) idEl.innerText = result.id || "N/A";
+        if (timeEl)
+          timeEl.innerText = new Date(result.timestamp).toLocaleString();
+      } else {
+        throw new Error(result.message || "Unknown error occurred");
+      }
+    } catch (err: any) {
+      // Error Logic
+      form?.classList.add("hidden");
+      errorState?.classList.remove("hidden");
+
+      const msgEl = document.getElementById("error-message");
+      const timeEl = document.getElementById("error-time");
+
+      if (msgEl) msgEl.innerText = err.message;
+      if (timeEl) timeEl.innerText = new Date().toLocaleString();
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+      if (buttonText) buttonText.innerText = "Send Message";
+    }
+  });
+
+  resetSuccess?.addEventListener("click", showForm);
+  resetError?.addEventListener("click", showForm);
+</script>

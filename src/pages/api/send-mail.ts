@@ -1,26 +1,29 @@
-import type { APIRoute } from 'astro';
-import { google } from 'googleapis';
-import MailComposer from 'nodemailer/lib/mail-composer';
+import type { APIRoute } from "astro";
+import { google } from "googleapis";
+import MailComposer from "nodemailer/lib/mail-composer";
 
 // Force server-side functionality
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request, redirect }) => {
   const data = await request.formData();
-  
+
   // 1. Invisible Honeypot Security
-  const botField = data.get('bot-field');
+  const botField = data.get("bot-field");
   if (botField) {
     // Silently success for bots (Shadowban)
-    return new Response(JSON.stringify({ message: 'Message sent successfully.' }), { status: 200 });
+    return new Response(
+      JSON.stringify({ message: "Message sent successfully." }),
+      { status: 200 }
+    );
   }
 
-  const name = data.get('name') as string;
-  const email = data.get('email') as string;
-  const message = data.get('message') as string;
+  const name = data.get("name") as string;
+  const email = data.get("email") as string;
+  const message = data.get("message") as string;
 
   if (!name || !email || !message) {
-    return new Response('All fields are required.', { status: 400 });
+    return new Response("All fields are required.", { status: 400 });
   }
 
   try {
@@ -31,32 +34,39 @@ export const POST: APIRoute = async ({ request, redirect }) => {
     const to = import.meta.env.EMAIL_TO;
 
     if (!clientId || !clientSecret || !refreshToken || !user || !to) {
-      console.error('Missing Environment Variables for Email Service');
-      return new Response('Server Configuration Error', { status: 500 });
+      console.error("Missing Environment Variables for Email Service");
+      return new Response("Server Configuration Error", { status: 500 });
     }
 
     // 1.5. Validate Cloudflare Turnstile
-    const turnstileToken = data.get('cf-turnstile-response') as string;
+    const turnstileToken = data.get("cf-turnstile-response") as string;
     const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
 
     if (turnstileSecret && turnstileToken) {
-      const turnstileVerify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          secret: turnstileSecret,
-          response: turnstileToken,
-        }),
-      });
+      const turnstileVerify = await fetch(
+        "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            secret: turnstileSecret,
+            response: turnstileToken,
+          }),
+        }
+      );
 
       const turnstileResult = await turnstileVerify.json();
       if (!turnstileResult.success) {
-        return new Response('Human verification failed. Please try again.', { status: 400 });
+        return new Response("Human verification failed. Please try again.", {
+          status: 400,
+        });
       }
     } else if (turnstileSecret && !turnstileToken) {
-       return new Response('Human verification missing. Please try again.', { status: 400 });
+      return new Response("Human verification missing. Please try again.", {
+        status: 400,
+      });
     }
 
     // 2. Authenticate with Gmail
@@ -76,31 +86,53 @@ export const POST: APIRoute = async ({ request, redirect }) => {
           <p><strong>Name:</strong> ${name}</p>
           <p><strong>Email:</strong> ${email}</p>
           <hr/>
-          <p>${message.replace(/\n/g, '<br/>')}</p>
+          <p>${message.replace(/\n/g, "<br/>")}</p>
         </div>
-      `
+      `,
     });
 
     const messageBuffer = await mail.compile().build();
-    const encodedMessage = messageBuffer.toString('base64')
-      .replace(/\+/g, '-')
-      .replace(/\//g, '_')
-      .replace(/=+$/, '');
+    const encodedMessage = messageBuffer
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
 
     // 4. Send via Gmail API
-    const gmail = google.gmail({ version: 'v1', auth: oAuth2Client });
-    await gmail.users.messages.send({
-      userId: 'me',
+    const gmail = google.gmail({ version: "v1", auth: oAuth2Client });
+    const result = await gmail.users.messages.send({
+      userId: "me",
       requestBody: {
-        raw: encodedMessage
-      }
+        raw: encodedMessage,
+      },
     });
 
     // 5. Success
-    return redirect('/?success=true');
-
-  } catch (error) {
-    console.error('Email Send Error:', error);
-    return new Response('Failed to send email. Please try again later.', { status: 500 });
+    return new Response(
+      JSON.stringify({
+        success: true,
+        message: "Message sent successfully!",
+        id: result.data.id,
+        timestamp: new Date().toISOString(),
+      }),
+      {
+        status: 200,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
+  } catch (error: any) {
+    console.error("Email Send Error:", error);
+    return new Response(
+      JSON.stringify({
+        success: false,
+        message:
+          error.message || "Failed to send email. Please try again later.",
+        timestamp: new Date().toISOString(),
+      }),
+      {
+        status: 500,
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 };
