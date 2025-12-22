@@ -122,6 +122,7 @@
 
     <button
       id="reset-success"
+      type="button"
       class="w-full py-3 border-2 border-[var(--text-color)] text-[var(--text-color)] font-bold rounded-xl hover:bg-[var(--text-color)]/5 transition-all active:scale-95"
     >
       one more thing...
@@ -167,6 +168,7 @@
 
     <button
       id="reset-error"
+      type="button"
       class="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:brightness-110 transition-all active:scale-95"
     >
       Try Again
@@ -192,6 +194,12 @@
     successState?.classList.add("hidden");
     errorState?.classList.add("hidden");
     form?.reset();
+
+    // Clear custom validation
+    form?.querySelectorAll("input, textarea").forEach((el) => {
+      (el as HTMLInputElement | HTMLTextAreaElement).setCustomValidity("");
+    });
+
     // @ts-ignore - Trigger Turnstile reset if available
     if (window.turnstile) {
       // @ts-ignore
@@ -199,8 +207,35 @@
     }
   };
 
+  // Force English validation messages
+  const setEnglishValidation = (el: HTMLInputElement | HTMLTextAreaElement) => {
+    el.addEventListener("invalid", (e) => {
+      const target = e.target as HTMLInputElement | HTMLTextAreaElement;
+      if (target.validity.valueMissing) {
+        target.setCustomValidity("Please fill out this field.");
+      } else if (target.validity.typeMismatch && target.type === "email") {
+        target.setCustomValidity("Please enter a valid email address.");
+      }
+    });
+
+    el.addEventListener("input", (e) => {
+      (e.target as HTMLInputElement | HTMLTextAreaElement).setCustomValidity(
+        ""
+      );
+    });
+  };
+
+  form
+    ?.querySelectorAll("input, textarea")
+    .forEach((el) =>
+      setEnglishValidation(el as HTMLInputElement | HTMLTextAreaElement)
+    );
+
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+    e.stopPropagation();
+
+    console.log("Form submission started...");
 
     // UI State
     if (submitButton) submitButton.disabled = true;
@@ -213,10 +248,14 @@
         body: formData,
       });
 
+      console.log("API Response received:", response.status);
+
       const result = await response.json();
+      console.log("Result data:", result);
 
       if (response.ok && result.success) {
         // Success Logic
+        console.log("Success triggered");
         form?.classList.add("hidden");
         successState?.classList.remove("hidden");
 
@@ -230,6 +269,7 @@
         throw new Error(result.message || "Unknown error occurred");
       }
     } catch (err: any) {
+      console.error("Submission catch triggered:", err);
       // Error Logic
       form?.classList.add("hidden");
       errorState?.classList.remove("hidden");
@@ -240,6 +280,7 @@
       if (msgEl) msgEl.innerText = err.message;
       if (timeEl) timeEl.innerText = new Date().toLocaleString();
     } finally {
+      console.log("Submission finally triggered");
       if (submitButton) submitButton.disabled = false;
       if (buttonText) buttonText.innerText = "Send Message";
     }
