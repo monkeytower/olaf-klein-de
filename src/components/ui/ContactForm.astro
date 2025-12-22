@@ -195,41 +195,12 @@
     errorState?.classList.add("hidden");
     form?.reset();
 
-    // Clear custom validation
-    form?.querySelectorAll("input, textarea").forEach((el) => {
-      (el as HTMLInputElement | HTMLTextAreaElement).setCustomValidity("");
-    });
-
     // @ts-ignore - Trigger Turnstile reset if available
     if (window.turnstile) {
       // @ts-ignore
       window.turnstile.reset();
     }
   };
-
-  // Force English validation messages
-  const setEnglishValidation = (el: HTMLInputElement | HTMLTextAreaElement) => {
-    el.addEventListener("invalid", (e) => {
-      const target = e.target as HTMLInputElement | HTMLTextAreaElement;
-      if (target.validity.valueMissing) {
-        target.setCustomValidity("Please fill out this field.");
-      } else if (target.validity.typeMismatch && target.type === "email") {
-        target.setCustomValidity("Please enter a valid email address.");
-      }
-    });
-
-    el.addEventListener("input", (e) => {
-      (e.target as HTMLInputElement | HTMLTextAreaElement).setCustomValidity(
-        ""
-      );
-    });
-  };
-
-  form
-    ?.querySelectorAll("input, textarea")
-    .forEach((el) =>
-      setEnglishValidation(el as HTMLInputElement | HTMLTextAreaElement)
-    );
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
