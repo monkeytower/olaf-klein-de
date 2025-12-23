@@ -68,8 +68,41 @@
     <div
       class="cf-turnstile py-2"
       data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+      data-theme="auto"
     >
     </div>
+
+    <script is:inline>
+      (function () {
+        const setTheme = () => {
+          const turnstileWidget = document.querySelector(".cf-turnstile");
+          if (turnstileWidget) {
+            const isDark = document.documentElement.classList.contains("dark");
+            turnstileWidget.setAttribute(
+              "data-theme",
+              isDark ? "dark" : "light"
+            );
+          }
+        };
+
+        // Set on load
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", setTheme);
+        } else {
+          setTheme();
+        }
+
+        // Listen for user theme toggles
+        const observer = new MutationObserver((mutations) => {
+          mutations.forEach((mutation) => {
+            if (mutation.attributeName === "class") {
+              setTheme();
+            }
+          });
+        });
+        observer.observe(document.documentElement, { attributes: true });
+      })();
+    </script>
 
     <button
       id="submit-button"
