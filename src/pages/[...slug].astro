@@ -1,6 +1,11 @@
 ---
 import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { createReader } from "@keystatic/core/reader";
+import config from "../../keystatic.config";
+
+// Initialize Keystatic Reader
+const reader = createReader(process.cwd(), config);
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
@@ -32,6 +37,9 @@ const isEn = entry.slug.includes("/en/");
 const isDe = entry.slug.includes("/de/");
 const lang = isDe ? "de" : "en";
 
+// Fetch settings for footer/social
+const settings = await reader.singletons.settings.read();
+
 // Breadcrumb Logic Labels
 const labels = {
   en: { home: "Home", docs: "Documentation" },
@@ -40,7 +48,11 @@ const labels = {
 const t = isDe ? labels.de : labels.en;
 ---
 
-<BaseLayout title={entry.data.title} description={entry.data.seoDescription}>
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.seoDescription}
+  socialLinks={settings?.socialLinks || []}
+>
   <script is:inline>
     // Handle redirection for legacy or non-lang-prefixed docs links
     if (window.location.pathname === "/docs/intro") {

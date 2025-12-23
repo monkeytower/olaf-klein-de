@@ -17,7 +17,11 @@ const siteTitle = settings?.siteTitle || "Olaf Klein";
 const subheadline = home?.subheadline || "Caveman with an iPhone";
 ---
 
-<BaseLayout title={siteTitle} description={subheadline}>
+<BaseLayout
+  title={siteTitle}
+  description={subheadline}
+  socialLinks={settings?.socialLinks || []}
+>
   <div class="relative overflow-hidden flex-grow flex flex-col justify-center">
     {/* Clean Background with very subtle texture */}
     <div
