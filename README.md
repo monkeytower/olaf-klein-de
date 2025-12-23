@@ -36,8 +36,8 @@ Professional portfolio and agency website for Olaf Klein, built with **Astro**, 
 
 ## 🌍 Repository & Vision
 
-This repository is maintained by **Monkeytower Internet Agency**. 
+This repository is maintained by **monkeytower internet agency**. 
 The goal is to provide a lightning-fast, high-converting gateway for Olaf Klein's digital projects.
 
 ---
-© 2025 Olaf Klein & Monkeytower.
+© 2025 Olaf Klein & monkeytower internet agency.
