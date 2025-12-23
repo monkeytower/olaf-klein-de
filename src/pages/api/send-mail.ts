@@ -27,15 +27,25 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   }
 
   try {
-    const clientId = import.meta.env.GMAIL_CLIENT_ID || import.meta.env.GOOGLE_CLIENT_ID;
-    const clientSecret = import.meta.env.GMAIL_CLIENT_SECRET || import.meta.env.GOOGLE_CLIENT_SECRET;
-    const refreshToken = import.meta.env.GMAIL_REFRESH_TOKEN || import.meta.env.GOOGLE_REFRESH_TOKEN;
-    const user = import.meta.env.GMAIL_USER || import.meta.env.EMAIL_USER; // Verified Sender
-    const to = import.meta.env.EMAIL_TO || user; // Default to self if EMAIL_TO missing
+    const clientId = import.meta.env.GMAIL_CLIENT_ID || import.meta.env.GOOGLE_CLIENT_ID || process.env.GMAIL_CLIENT_ID || process.env.GOOGLE_CLIENT_ID;
+    const clientSecret = import.meta.env.GMAIL_CLIENT_SECRET || import.meta.env.GOOGLE_CLIENT_SECRET || process.env.GMAIL_CLIENT_SECRET || process.env.GOOGLE_CLIENT_SECRET;
+    const refreshToken = import.meta.env.GMAIL_REFRESH_TOKEN || import.meta.env.GOOGLE_REFRESH_TOKEN || process.env.GMAIL_REFRESH_TOKEN || process.env.GOOGLE_REFRESH_TOKEN;
+    const user = import.meta.env.GMAIL_USER || import.meta.env.EMAIL_USER || process.env.GMAIL_USER || process.env.EMAIL_USER;
+    const to = import.meta.env.EMAIL_TO || process.env.EMAIL_TO || user;
 
     if (!clientId || !clientSecret || !refreshToken || !user || !to) {
       console.error("Missing Environment Variables for Email Service");
-      return new Response("Server Configuration Error", { status: 500 });
+      return new Response(
+        JSON.stringify({ 
+          success: false, 
+          message: "Server Configuration Error: Missing environment variables.",
+          timestamp: new Date().toISOString()
+        }), 
+        { 
+          status: 500,
+          headers: { "Content-Type": "application/json" }
+        }
+      );
     }
 
     // 1.5. Validate Cloudflare Turnstile
