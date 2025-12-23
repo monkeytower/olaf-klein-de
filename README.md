@@ -1,43 +1,43 @@
-# Astro Starter Kit: Minimal
+# Olaf Klein - Portfolio & Agency Site
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Professional portfolio and agency website for Olaf Klein, built with **Astro**, **Tailwind CSS**, and **Keystatic**.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Key Features
 
-## 🚀 Project Structure
+- **Modern Tech Stack**: Astro 5 (Server Components & Static Routing).
+- **Styling**: Tailwind CSS 4 for a premium, high-performance UI.
+- **CMS**: Keystatic for local, git-based content management (Projects, Settings, Home).
+- **Responsive**: Mobile-first design with horizontal swipe cards and peek effects.
+- **Multilingual**: Native English and German support with local storage persistence.
+- **Security**: turnstile-integrated contact forms and secure email handling via Nodemailer.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🛠 Project Structure
 
 ```text
 /
-├── public/
+├── keystatic.config.ts  # CMS Configuration
 ├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+│   ├── components/      # UI Components (Navigation, Form, etc.)
+│   ├── layouts/         # BaseLayout with Theme & Lang logic
+│   ├── pages/           # Page routes (index, imprint, privacy)
+│   ├── styles/          # Global CSS & Tailwind config
+│   └── content/         # CMS managed local content
+└── package.json         # Versioning and dependencies
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+##  Genie Commands
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Command           | Action                                         |
+| :---------------- | :--------------------------------------------- |
+| `npm install`     | Installs dependencies                          |
+| `npm run dev`     | Starts local dev server at `localhost:4321`    |
+| `npm run build`   | Build for production (Node.js Adapter)         |
+| `npm start`       | Start the production build entry point         |
 
-Any static assets, like images, can be placed in the `public/` directory.
+## 🌍 Repository & Vision
 
-## 🧞 Commands
+This repository is maintained by **Monkeytower Internet Agency**. 
+The goal is to provide a lightning-fast, high-converting gateway for Olaf Klein's digital projects.
 
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+---
+© 2025 Olaf Klein & Monkeytower.

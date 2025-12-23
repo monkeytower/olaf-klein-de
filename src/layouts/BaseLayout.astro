@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import Navigation from "../components/ui/Navigation.astro";
+import packageJson from "../../package.json";
 
 interface Props {
   title?: string;
@@ -17,6 +18,8 @@ const {
   description = "Webseite von Olaf Klein",
   socialLinks = [],
 } = Astro.props;
+
+const version = packageJson.version;
 ---
 
 <!doctype html>
@@ -267,7 +270,15 @@ const {
               data-t="all-rights">All rights reserved.</span
             >
           </p>
-          <div class="flex gap-8">
+          <div class="flex gap-8 items-center">
+            <a
+              href="https://github.com/monkeytower/olaf-klein-de/commits/main/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-[10px] font-mono hover:text-primary transition-colors opacity-40 hover:opacity-100"
+            >
+              v{version}
+            </a>
             <a
               href="/impressum"
               class="hover:text-primary transition-colors"
