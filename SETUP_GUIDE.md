@@ -1,5 +1,7 @@
 # 📚 Complete Deployment Guide
 
+**Repository:** [github.com/monkeytower/olaf-klein-de](https://github.com/monkeytower/olaf-klein-de)
+
 ## 1. Google OAuth2 Setup (Gmail Sending)
 To enable the contact form to send emails via your Gmail account:
 
