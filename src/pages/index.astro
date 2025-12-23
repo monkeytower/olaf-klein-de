@@ -33,7 +33,7 @@ const subheadline = "Caveman with an iPhone";
             <h1 class="text-4xl md:text-6xl tracking-tight leading-tight">
               <span
                 class="font-light text-slate-400 dark:text-slate-500 block mb-3"
-                >Contact page</span
+                data-t="contact-page">Contact page</span
               >
               <span class="font-bold block text-slate-900 dark:text-white"
                 >Olaf Klein</span
@@ -45,7 +45,9 @@ const subheadline = "Caveman with an iPhone";
               {subheadline}
             </p>
             <div class="mt-4 space-y-2">
-              <p class="text-sm font-bold opacity-60">Projects:</p>
+              <p class="text-sm font-bold opacity-60" data-t="projects">
+                Projects:
+              </p>
               <ul class="text-sm space-y-1 opacity-80">
                 <li>
                   <a
@@ -133,7 +135,7 @@ const subheadline = "Caveman with an iPhone";
                     d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
                   ></path></svg
                 >
-                WhatsApp Chat
+                <span data-t="message-label">Message</span>
               </a>
             </div>
             <a
@@ -141,6 +143,7 @@ const subheadline = "Caveman with an iPhone";
               target="_blank"
               rel="noopener noreferrer"
               class="w-full flex items-center justify-center gap-2 px-6 py-3 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-xs tracking-wider transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
+              data-t="get-support"
             >
               Get Support
             </a>
@@ -153,7 +156,12 @@ const subheadline = "Caveman with an iPhone";
             class="bg-[var(--bg-color)] p-6 md:p-8 rounded-[2rem] border-4 border-[var(--text-color)] shadow-[12px_12px_0px_0px_var(--text-color)] dark:shadow-[12px_12px_0px_0px_rgba(255,255,255,0.1)] transition-all overflow-hidden"
           >
             <div class="space-y-2 mb-6">
-              <h3 class="text-xl font-bold tracking-tight">Get in touch</h3>
+              <h3
+                class="text-xl font-bold tracking-tight"
+                data-t="get-in-touch"
+              >
+                Get in touch
+              </h3>
               <div class="h-1.5 w-16 bg-primary"></div>
             </div>
             <ContactForm />

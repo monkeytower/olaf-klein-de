@@ -20,7 +20,11 @@
     </div>
 
     <div class="space-y-1">
-      <label for="name" class="text-xs font-semibold opacity-60 ml-1">
+      <label
+        for="name"
+        class="text-xs font-semibold opacity-60 ml-1"
+        data-t="full-name"
+      >
         Full Name
       </label>
       <input
@@ -30,11 +34,16 @@
         required
         class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
         placeholder="e.g. John Doe"
+        data-t="full-name"
       />
     </div>
 
     <div class="space-y-1">
-      <label for="email" class="text-xs font-semibold opacity-60 ml-1">
+      <label
+        for="email"
+        class="text-xs font-semibold opacity-60 ml-1"
+        data-t="email-address"
+      >
         Email Address
       </label>
       <input
@@ -44,11 +53,16 @@
         required
         class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
         placeholder="john@example.com"
+        data-t="email-address"
       />
     </div>
 
     <div class="space-y-1">
-      <label for="message" class="text-xs font-semibold opacity-60 ml-1">
+      <label
+        for="message"
+        class="text-xs font-semibold opacity-60 ml-1"
+        data-t="message-label"
+      >
         Message
       </label>
       <textarea
@@ -57,7 +71,8 @@
         rows="3"
         required
         class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-3 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none"
-        placeholder="How can I help you?"></textarea>
+        placeholder="How can I help you?"
+        data-t="help-placeholder"></textarea>
     </div>
 
     {/* Security: Cloudflare Turnstile */}
@@ -109,7 +124,7 @@
       type="submit"
       class="w-full py-3 bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-bold rounded-xl hover:brightness-110 hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
     >
-      <span id="button-text">Send Message</span>
+      <span id="button-text" data-t="send-message">Send Message</span>
     </button>
   </form>
 
@@ -133,8 +148,10 @@
         >
       </div>
       <div class="space-y-2">
-        <h2 class="text-2xl font-bold tracking-tight">Message Sent!</h2>
-        <p class="text-slate-500 dark:text-slate-400">
+        <h2 class="text-2xl font-bold tracking-tight" data-t="success-title">
+          Message Sent!
+        </h2>
+        <p class="text-slate-500 dark:text-slate-400" data-t="success-body">
           Thank you for getting in touch. I'll get back to you shortly.
         </p>
       </div>
@@ -157,6 +174,7 @@
       id="reset-success"
       type="button"
       class="w-full py-3 border-2 border-[var(--text-color)] text-[var(--text-color)] font-bold rounded-xl hover:bg-[var(--text-color)]/5 transition-all active:scale-95"
+      data-t="reset-button"
     >
       one more thing...
     </button>
@@ -184,7 +202,9 @@
         >
       </div>
       <div class="space-y-2">
-        <h2 class="text-2xl font-bold tracking-tight">Submission Failed</h2>
+        <h2 class="text-2xl font-bold tracking-tight" data-t="error-title">
+          Submission Failed
+        </h2>
         <p id="error-message" class="text-red-500/80"></p>
       </div>
     </div>
@@ -203,6 +223,7 @@
       id="reset-error"
       type="button"
       class="w-full py-3 bg-red-600 text-white font-bold rounded-xl hover:brightness-110 transition-all active:scale-95"
+      data-t="try-again"
     >
       Try Again
     </button>
@@ -243,7 +264,19 @@
 
     // UI State
     if (submitButton) submitButton.disabled = true;
-    if (buttonText) buttonText.innerText = "Sending...";
+
+    const currentLang =
+      localStorage.getItem("lang") ||
+      (navigator.language.startsWith("de") ? "de" : "en");
+    const translations = {
+      en: { "send-message": "Send Message", sending: "Sending..." },
+      de: { "send-message": "Nachricht senden", sending: "Sende..." },
+    };
+
+    if (buttonText) {
+      // @ts-ignore
+      buttonText.innerText = translations[currentLang]["sending"];
+    }
 
     try {
       const formData = new FormData(form);
@@ -286,7 +319,12 @@
     } finally {
       console.log("Submission finally triggered");
       if (submitButton) submitButton.disabled = false;
-      if (buttonText) buttonText.innerText = "Send Message";
+
+      if (buttonText) {
+        const key = buttonText.getAttribute("data-t");
+        // @ts-ignore
+        buttonText.innerText = translations[currentLang][key] || "Send Message";
+      }
     }
   });
 

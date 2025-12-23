@@ -50,6 +50,82 @@ const { title = "Olaf Klein", description = "Webseite von Olaf Klein" } =
         document.documentElement.classList.remove("dark");
       }
     </script>
+    <script is:inline>
+      (function () {
+        const translations = {
+          en: {
+            "contact-page": "Contact page",
+            "get-support": "Get Support",
+            "send-message": "Send Message",
+            "message-label": "Message",
+            "help-placeholder": "How can I help you?",
+            "full-name": "Full Name",
+            "email-address": "Email Address",
+            projects: "Projects:",
+            imprint: "Imprint",
+            privacy: "Privacy Policy",
+            "get-in-touch": "Get in touch",
+            "success-title": "Message Sent!",
+            "success-body":
+              "Thank you for getting in touch. I'll get back to you shortly.",
+            "error-title": "Submission Failed",
+            "reset-button": "one more thing...",
+            "try-again": "Try Again",
+            "all-rights": "All rights reserved.",
+          },
+          de: {
+            "contact-page": "Kontaktseite",
+            "get-support": "Support anfragen",
+            "send-message": "Nachricht senden",
+            "message-label": "Nachricht",
+            "help-placeholder": "Wie kann ich Ihnen helfen?",
+            "full-name": "Vollständiger Name",
+            "email-address": "E-Mail Adresse",
+            projects: "Projekte:",
+            imprint: "Impressum",
+            privacy: "Datenschutz",
+            "get-in-touch": "Kontakt aufnehmen",
+            "success-title": "Nachricht gesendet!",
+            "success-body":
+              "Vielen Dank für Ihre Nachricht. Ich melde mich in Kürze.",
+            "error-title": "Übermittlung fehlgeschlagen",
+            "reset-button": "Noch etwas...",
+            "try-again": "Erneut versuchen",
+            "all-rights": "Alle Rechte vorbehalten.",
+          },
+        };
+
+        const updateTranslations = (lang) => {
+          document.querySelectorAll("[data-t]").forEach((el) => {
+            const key = el.getAttribute("data-t");
+            if (translations[lang] && translations[lang][key]) {
+              if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                el.placeholder = translations[lang][key];
+              } else {
+                el.innerText = translations[lang][key];
+              }
+            }
+          });
+        };
+
+        // Initial update
+        const currentLang =
+          localStorage.getItem("lang") ||
+          (navigator.language.startsWith("de") ? "de" : "en");
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", () =>
+            updateTranslations(currentLang)
+          );
+        } else {
+          updateTranslations(currentLang);
+        }
+
+        // Handle language change event
+        window.addEventListener("lang-changed", (e) => {
+          updateTranslations(e.detail);
+        });
+      })();
+    </script>
   </head>
   <body
     class="font-sans antialiased min-h-screen flex flex-col selection:bg-primary/20"
@@ -186,14 +262,20 @@ const { title = "Olaf Klein", description = "Webseite von Olaf Klein" } =
           class="flex flex-col md:flex-row justify-between items-center gap-6 opacity-60 text-sm"
         >
           <p>
-            &copy; {new Date().getFullYear()} Olaf Klein. All rights reserved.
+            &copy; {new Date().getFullYear()} Olaf Klein. <span
+              data-t="all-rights">All rights reserved.</span
+            >
           </p>
           <div class="flex gap-8">
-            <a href="/impressum" class="hover:text-primary transition-colors"
-              >Impressum</a
+            <a
+              href="/impressum"
+              class="hover:text-primary transition-colors"
+              data-t="imprint">Impressum</a
             >
-            <a href="/privacy" class="hover:text-primary transition-colors"
-              >Datenschutz</a
+            <a
+              href="/privacy"
+              class="hover:text-primary transition-colors"
+              data-t="privacy">Datenschutz</a
             >
           </div>
         </div>

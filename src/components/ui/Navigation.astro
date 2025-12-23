@@ -92,6 +92,9 @@
     currentLang = newLang;
     updateLangUI(newLang);
 
+    // Dispatch event for other components to update
+    window.dispatchEvent(new CustomEvent("lang-changed", { detail: newLang }));
+
     // If we are on a documentation page, redirect to the other language version
     if (window.location.pathname.includes("/docs/")) {
       const pathParts = window.location.pathname.split("/");
