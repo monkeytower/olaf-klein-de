@@ -1,0 +1,68 @@
+---
+title: "Dokumentation"
+seoTitle: "Projektdokumentation: Einführung"
+seoDescription: "Überblick über die Migration des Olaf Klein Projekts zu Jamstack."
+---
+
+# 📘 Projektdokumentation
+
+Willkommen zur umfassenden Dokumentation für das **Olaf Klein** Website-Projekt. Dieser Leitfaden beschreibt, wie wir von einem Altsystem zu einer modernen, leistungsstarken **Jamstack**-Architektur migriert sind.
+
+## 🎯 Ziel
+Erstellung einer schnellen, sicheren und einfach zu verwaltenden Website unter Verwendung der besten Open-Source-Technologien.
+
+## 🛠️ Tech Stack
+
+Wir haben diesen Stack aufgrund seiner Performance, Entwicklererfahrung und Kosteneffizienz ausgewählt:
+
+-   **[Astro](https://astro.build)**: Das Web-Framework. Optimiert für statische Inhalte und Geschwindigkeit.
+-   **[Tailwind CSS](https://tailwindcss.com)**: Ein Utility-First-CSS-Framework für schnelle UI-Entwicklung.
+-   **[Keystatic](https://keystatic.com)**: Ein Git-basiertes Content Management System (CMS). Keine Datenbank erforderlich.
+-   **[Coolify](https://coolify.io)**: Self-hosted PaaS-Plattform (Apps wie von Zauberhand deployen).
+-   **Docker**: Für die containerisierte Bereitstellung auf jedem Linux-Server.
+-   **[Google Gmail API](https://developers.google.com/gmail/api)**: Zum sicheren Versenden von E-Mails über OAuth2 / Backend.
+-   **[Cloudflare Turnstile](https://www.cloudflare.com/products/turnstile/)**: Datenschutzorientierte CAPTCHA-Alternative zum Blockieren von Spam.
+
+---
+
+## 🐒 Die Magie: Vibe-Coding & Automatisierung
+
+Das Besondere an diesem Projekt ist, dass es **zu 100 % mit KI-Unterstützung erstellt wurde**. Vom ursprünglichen Server-Setup der **DALM Factory** über die komplexe Gmail-API-Integration bis hin zu den finalen Design-Anpassungen wurde keine einzige Zeile Code von Olaf manuell angefasst.
+
+Alles wurde per **"Vibe-Coding"** und **"Vibe-Installing"** mit KI-gesteuerten Agenten und automatisierten Ansible-Playbooks erstellt. Wir haben uns von "digitalen Hausmeistern" zu souveränen Architekten entwickelt.
+
+### 🚀 Die DALM Factory (Deploy Apps Like Magic)
+Wir bauen ein dauerhaftes, souveränes Zuhause für die Ära des Vibe-Codings. Keine WordPress-Plugin-Hölle mehr – nur noch rohe Power. Die Infrastruktur (verwaltet über Ansible/Coolify) besteht aus unserer eigenen "H2G2-Flotte":
+
+*   🏗️ **MAGRATHEA (Die Fabrik)**: Unser privates Vercel. Nutzt Coolify für Instant Git-to-Live Deploys und n8n als Automatisierungs-Gehirn.
+*   🛡️ **MARVIN (Der Wächter)**: Paranoide Sicherheit & Monitoring. Nutzt Borg-Backups und Uptime Kuma.
+*   🕹️ **EDDIE (Das Cockpit)**: Notfall-Station. Browserbasiertes VS Code via Cloudflare Tunnel.
+*   🍽️ **MILLIWAYS (Die Cash-Cow)**: Isoliertes Legacy-Hosting. Sie bezahlen für die Party; wir genießen das Metall.
+
+**Keine Panik. Die Zukunft ist statisch.** 🌌🐒
+
+## 📚 Struktur der Dokumentation
+
+Folgen Sie diesen Schritten, um das Setup zu verstehen oder nachzubauen:
+
+1.  [**Schritt 1: Astro & Lokales Setup**](/docs/de/step1)
+    *   Einrichten des Projekts, Installieren von Abhängigkeiten und Ausführen des Dev-Servers.
+2.  [**Schritt 2: CMS-Integration**](/docs/de/step2)
+    *   Konfigurieren von Keystatic für die Inhaltsverwaltung über GitHub.
+3.  [**Schritt 3: Backend & Sicherheit**](/docs/de/step3)
+    *   Implementierung der E-Mail-API und Hinzufügen des Turnstile-Schutzes.
+4.  [**Schritt 4: Deployment**](/docs/de/step4)
+    *   Live-Gang auf Coolify unter Verwendung von Docker und Konfiguration von Umgebungsvariablen.
+
+---
+
+## 🚀 Erste Schritte
+
+Wenn Sie dieses Repository heruntergeladen haben, können Sie das Projekt lokal starten mit:
+
+```bash
+npm install
+npm run dev
+```
+
+Besuchen Sie `http://localhost:4321`, um die Seite zu sehen.

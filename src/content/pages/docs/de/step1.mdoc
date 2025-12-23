@@ -1,0 +1,63 @@
+---
+title: "Schritt 1"
+seoTitle: "Schritt 1: Astro & Lokales Setup"
+seoDescription: "Initialisierung des Astro-Projekts und Installation der Abhängigkeiten."
+---
+
+# 🚀 Schritt 1: Astro & Lokales Setup
+
+Die Basis unseres Projekts ist **Astro**. Es ermöglicht uns, eine Website zu erstellen, die standardmäßig kein JavaScript an den Client sendet, was für maximale Performance sorgt.
+
+## 1. Voraussetzungen
+
+Stellen Sie sicher, dass Folgendes installiert ist:
+*   **Node.js** (v18.14.1 oder höher)
+*   **Text Editor** (VS Code empfohlen)
+*   **Terminal**
+
+## 2. Initialisierung
+
+Wir haben mit der Erstellung eines neuen Astro-Projekts über die Kommandozeile begonnen:
+
+```bash
+npm create astro@latest olaf-klein-de
+```
+
+**Konfigurationsentscheidungen:**
+*   **Template**: Minimal (sauberer Start)
+*   **TypeScript**: Strict (für Typsicherheit)
+*   **Abhängigkeiten**: Ja
+*   **Git**: Ja
+
+## 3. Wichtige Integrationen hinzufügen
+
+Astro verfügt über ein leistungsstarkes CLI zum Hinzufügen von Funktionen. Wir haben **Tailwind CSS** für das Styling und **React** (erforderlich für das Keystatic-Admin-UI) installiert.
+
+```bash
+npx astro add tailwind react partytown
+```
+
+*Hinweis: Partytown ist optional und wird verwendet, um Skripte von Drittanbietern auszulagern.*
+
+## 4. Projektstruktur
+
+Die Struktur ist einfach:
+
+*   `src/pages`: Routen (Seiten) der Website.
+*   `src/layouts`: Wiederverwendbare Page-Wrapper (Header, Footer).
+*   `src/components`: UI-Elemente (Buttons, Formulare).
+*   `src/content`: Die Datenbank für unser CMS (Markdown/Markdoc-Dateien).
+*   `public`: Statische Assets (Fonts, Icons).
+
+## 5. Lokal ausführen
+
+Um den Development-Server zu starten:
+
+```bash
+npm run dev
+```
+
+Die Seite ist unter `http://localhost:4321` erreichbar.
+
+---
+👉 [Weiter: Schritt 2 - CMS-Integration](/docs/de/step2)

@@ -1,0 +1,52 @@
+---
+title: "Schritt 4"
+seoTitle: "Schritt 4: Coolify Deployment"
+seoDescription: "Bereitstellung des Projekts auf Ihrem eigenen Server über Coolify und Docker."
+---
+
+# 🌍 Schritt 4: Deployment
+
+Wir hosten die Website auf **Coolify** (deploy.dalm.de). Wir verwenden den **Node.js Adapter** für Astro, der es uns ermöglicht, die Website als dauerhafte, containerisierte Anwendung auszuführen.
+
+## 1. Docker vorbereiten
+
+Astro ist so konfiguriert, dass es den `@astrojs/node` Adapter verwendet. Wir haben ein `Dockerfile`, das:
+*   Abhängigkeiten installiert und die Website baut.
+*   Port 3000 für den Node.js-Server bereitstellt.
+*   Den Standalone-Server-Einstiegspunkt ausführt.
+
+## 2. Verbindung zu Coolify
+
+1.  Melden Sie sich bei Ihrer Coolify-Instanz unter `deploy.dalm.de` an.
+2.  Erstellen Sie ein neues **Projekt** und eine **Ressource**.
+3.  Wählen Sie **Public Repository** oder **Private GitHub Repository**.
+4.  Coolify erkennt automatisch das `Dockerfile` im Stammverzeichnis des Projekts.
+
+## 3. Umgebungsvariablen
+
+Da wir in einem Container arbeiten, müssen Umgebungsvariablen im Coolify-UI unter dem Reiter **Environment Variables** Ihrer Ressource definiert werden:
+
+*   `GOOGLE_CLIENT_ID` / `_SECRET` / `_REFRESH_TOKEN`
+*   `KEYSTATIC_GITHUB_CLIENT_ID` / `_SECRET`
+*   `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
+*   `KEYSTATIC_SECRET`
+
+## 4. GitHub App Callback
+
+Wenn Sie Keystatic mit GitHub-Speicher verwenden, stellen Sie sicher, dass die **Callback-URL** Ihrer GitHub-App auf Ihre neue Domain zeigt:
+`https://olaf-klein.de/api/keystatic/github/oauth/callback`
+
+## 5. Das Ergebnis
+
+Coolify überwacht Ihr Repository. Wenn Sie in den `main`-Branch pushen, erstellt es ein neues Docker-Image und startet den Container ohne Ausfallzeit neu.
+
+---
+
+# 🎉 Fazit
+
+Ihr Übergang zu einer selbstgehosteten Architektur ist abgeschlossen. Die Website ist:
+*   **Schnell**: Vorausgerenderte statische Seiten, bereitgestellt durch Node.js.
+*   **Funktional**: Aktive serverseitige API für das Kontaktformular.
+*   **Unabhängig**: Sie besitzen jetzt die gesamte Infrastruktur.
+
+Viel Erfolg beim Deployen!

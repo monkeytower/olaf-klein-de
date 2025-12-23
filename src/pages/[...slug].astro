@@ -24,24 +24,46 @@ if (!entry) {
 const { Content } = await entry.render();
 
 // Breadcrumb Logic
-const isDocsPage = entry.slug.startsWith("docs/");
-const isDocsIntro = entry.slug === "docs/intro";
+const isDocsPage = entry.slug.includes("/docs/");
+const isEn = entry.slug.includes("/en/");
+const isDe = entry.slug.includes("/de/");
+const lang = isDe ? "de" : "en";
+
+// Breadcrumb Logic Labels
+const labels = {
+  en: { home: "Home", docs: "Documentation" },
+  de: { home: "Startseite", docs: "Dokumentation" },
+};
+const t = isDe ? labels.de : labels.en;
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.seoDescription}>
+  <script is:inline>
+    // Handle redirection for legacy or non-lang-prefixed docs links
+    if (window.location.pathname === "/docs/intro") {
+      const savedLang =
+        localStorage.getItem("lang") ||
+        (navigator.language.startsWith("de") ? "de" : "en");
+      window.location.href = `/docs/${savedLang}/intro`;
+    }
+  </script>
+
   <div class="max-w-4xl mx-auto px-6 py-12 md:px-12">
     {/* Breadcrumb Navigation */}
     <nav
       class="mb-12 flex items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100 transition-opacity"
     >
-      <a href="/" class="hover:text-primary transition-colors">Home</a>
+      <a href="/" class="hover:text-primary transition-colors">{t.home}</a>
 
       {
-        isDocsPage && !isDocsIntro && (
+        isDocsPage && !entry.slug.endsWith("/intro") && (
           <>
             <span class="opacity-40">/</span>
-            <a href="/docs/intro" class="hover:text-primary transition-colors">
-              Documentation
+            <a
+              href={`/docs/${lang}/intro`}
+              class="hover:text-primary transition-colors"
+            >
+              {t.docs}
             </a>
           </>
         )
@@ -63,7 +85,7 @@ const isDocsIntro = entry.slug === "docs/intro";
       /* Header - Only show for non-docs pages or the Intro to avoid duplication in sub-steps */
     }
     {
-      (!isDocsPage || isDocsIntro) && (
+      (!isDocsPage || entry.slug.endsWith("/intro")) && (
         <header class="mb-12">
           <h1 class="font-heading text-4xl font-bold tracking-tight md:text-5xl text-primary mb-4">
             {entry.data.title}

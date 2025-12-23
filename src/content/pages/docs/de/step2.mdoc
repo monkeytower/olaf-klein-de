@@ -1,0 +1,69 @@
+---
+title: "Schritt 2"
+seoTitle: "Schritt 2: CMS-Integration (Keystatic)"
+seoDescription: "Einrichten von Keystatic für die Git-basierte Inhaltsverwaltung."
+---
+
+# 📝 Schritt 2: CMS-Integration
+
+Wir nutzen **Keystatic**, um die Inhalte der Website zu verwalten. Im Gegensatz zu WordPress benötigt es keine Datenbank. Es speichert Ihre Änderungen direkt im Git-Repository als Markdown/Markdoc-Dateien.
+
+## 1. Installation
+
+Wir haben die erforderlichen Pakete installiert:
+
+```bash
+npm install @keystatic/core @keystatic/astro
+```
+
+## 2. Konfiguration
+
+Wir haben die `astro.config.mjs` konfiguriert, um die Keystatic-Integration einzubeziehen:
+
+```javascript
+import keystatic from '@keystatic/astro';
+
+export default defineConfig({
+  output: 'static',
+  integrations: [react(), keystatic(), markdoc()],
+});
+```
+
+## 3. Definition des Schemas
+
+Die Logik befindet sich in der `keystatic.config.ts`. Hier definieren wir unsere **Collections** und **Singletons**.
+
+*   **Speicherstrategie**:
+    *   **Local**: Wenn auf `localhost` ausgeführt, werden Inhalte auf Ihrer Festplatte gespeichert.
+    *   **GitHub**: In der Produktion werden Inhalte in das GitHub-Repo übertragen.
+
+```typescript
+// Ausschnitt aus keystatic.config.ts
+export default config({
+  storage: import.meta.env.PROD
+    ? { kind: 'github', repo: { owner: 'monkeytower', name: 'olaf-klein-de' } }
+    : { kind: 'local' },
+  collections: {
+    pages: collection({
+      label: 'Seiten',
+      path: 'src/content/pages/*',
+      schema: {
+        title: fields.slug({ name: { label: 'Titel' } }),
+        content: fields.markdoc({ label: 'Inhalt' }),
+      },
+    }),
+    // ...services, portfolio
+  },
+});
+```
+
+## 4. Zugriff auf das Admin-UI
+
+Navigieren Sie in Ihrem Browser zu `/keystatic`.
+*   **Lokal**: Es funktioniert einfach.
+*   **Produktion**: Sie müssen sich über GitHub OAuth anmelden.
+
+Dieser Inhalt steuert die gesamte Website. Die dynamischen Routen (`[...slug].astro`) lesen diese Dateien und rendern sie als HTML.
+
+---
+👉 [Weiter: Schritt 3 - Backend & Sicherheit](/docs/de/step3)
