@@ -27,11 +27,11 @@ export const POST: APIRoute = async ({ request, redirect }) => {
   }
 
   try {
-    const clientId = import.meta.env.GOOGLE_CLIENT_ID;
-    const clientSecret = import.meta.env.GOOGLE_CLIENT_SECRET;
-    const refreshToken = import.meta.env.GOOGLE_REFRESH_TOKEN;
-    const user = import.meta.env.EMAIL_USER; // Verified Sender
-    const to = import.meta.env.EMAIL_TO;
+    const clientId = import.meta.env.GMAIL_CLIENT_ID || import.meta.env.GOOGLE_CLIENT_ID;
+    const clientSecret = import.meta.env.GMAIL_CLIENT_SECRET || import.meta.env.GOOGLE_CLIENT_SECRET;
+    const refreshToken = import.meta.env.GMAIL_REFRESH_TOKEN || import.meta.env.GOOGLE_REFRESH_TOKEN;
+    const user = import.meta.env.GMAIL_USER || import.meta.env.EMAIL_USER; // Verified Sender
+    const to = import.meta.env.EMAIL_TO || user; // Default to self if EMAIL_TO missing
 
     if (!clientId || !clientSecret || !refreshToken || !user || !to) {
       console.error("Missing Environment Variables for Email Service");
