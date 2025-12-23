@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/markdoc": "^0.15.9",
-    "@astrojs/netlify": "^6.6.3",
+    "@astrojs/node": "^9.5.1",
     "@astrojs/react": "^4.4.2",
     "@fontsource/archivo": "^5.2.8",
     "@keystatic/astro": "^5.0.6",

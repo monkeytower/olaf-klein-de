@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
-import netlify from '@astrojs/netlify';
+import node from '@astrojs/node';
 import keystatic from '@keystatic/astro';
 
 import markdoc from '@astrojs/markdoc';
@@ -15,5 +15,7 @@ export default defineConfig({
   },
 
   integrations: [react(), keystatic(), markdoc()],
-  adapter: netlify()
+  adapter: node({
+    mode: 'standalone'
+  })
 });

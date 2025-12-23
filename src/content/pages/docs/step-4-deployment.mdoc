@@ -1,48 +1,52 @@
 ---
 title: "docs/step-4-deployment"
-seoTitle: "Step 4: Netlify Deployment"
-seoDescription: "Deploying the project to the global edge via Netlify."
+seoTitle: "Step 4: Coolify Deployment"
+seoDescription: "Deploying the project to your own server via Coolify and Docker."
 ---
 
 # 🌍 Step 4: Deployment
 
-We host the site on **Netlify**. Its "Adapter" for Astro allows us to mix static pages (Home, Docs) with dynamic functions (Email API).
+We host the site on **Coolify** (deploy.dalm.de). We use the **Node.js Adapter** for Astro, which allows us to run the site as a persistent containerized application.
 
-## 1. Connecting Git
+## 1. Preparing Docker
 
-*   We pushed our code to **GitHub**.
-*   We connected the repository to Netlify ("Import from Git").
-*   Netlify automatically detected the build settings: `npm run build`.
+Astro is configured to use the `@astrojs/node` adapter. We include a `Dockerfile` that:
+*   Installs dependencies and builds the site.
+*   Exposes port 3000 for the Node.js server.
+*   Runs the standalone server entry point.
 
-## 2. Environment Variables
+## 2. Connecting to Coolify
 
-This is crucial. The `.env` file on your computer is private. We must manually provide these secrets to Netlify:
+1.  Log in to your Coolify instance at `deploy.dalm.de`.
+2.  Create a new **Project** and **Resource**.
+3.  Select **Public Repository** or **Private GitHub Repository**.
+4.  Coolify will automatically detect the `Dockerfile` in the root of the project.
+
+## 3. Environment Variables
+
+Since we are running in a container, environment variables must be defined in the Coolify UI under the **Environment Variables** tab of your resource:
 
 *   `GOOGLE_CLIENT_ID` / `_SECRET` / `_REFRESH_TOKEN`
 *   `KEYSTATIC_GITHUB_CLIENT_ID` / `_SECRET`
 *   `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
+*   `KEYSTATIC_SECRET`
 
-These are added in **Site Settings > Environment Variables**.
+## 4. GitHub App Callback
 
-## 3. GitHub App for CMS
+If using Keystatic with GitHub storage, ensure your GitHub App's **Callback URL** is updated to point to your new domain:
+`https://your-new-domain.com/api/keystatic/github/oauth/callback`
 
-To let Keystatic write to your repo, we created a **GitHub App**.
-*   It has `Read & Write` permission for "Contents".
-*   We installed it on the repository.
-*   We set the **Callback URL** in the GitHub App to:
-    `https://your-domain.com/api/keystatic/github/oauth/callback`
+## 5. The Result
 
-## 4. The Result
-
-Whenever we push code to GitHub or save content in Keystatic, Netlify triggers a new build. Within seconds, the changes are live worldwide.
+Coolify monitors your repository. When you push to `main`, it builds a new Docker image and restarts the container with zero downtime.
 
 ---
 
 # 🎉 Conclusion
 
-You now have a production-grade Jamstack website. It is:
-*   **Fast**: Pre-rendered HTML.
-*   **Secure**: No database to hack, no exposed passwords.
-*   **Maintainable**: Clean architecture and typed code.
+Your transition to a self-hosted architecture is complete. The site remains:
+*   **Fast**: Pre-rendered static pages served by Node.js.
+*   **Functional**: Active server-side API for the contact form.
+*   **Independent**: You now own the infrastructure.
 
-Happy Coding!
+Happy Deploying!
