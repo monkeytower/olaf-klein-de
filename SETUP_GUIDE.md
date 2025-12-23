@@ -79,16 +79,17 @@ To protect the contact form from spam using Cloudflare Turnstile:
 
 ---
 
-## 4. Netlify Deployment
-1.  **Log in** to [Netlify Dashboard](https://app.netlify.com).
-2.  **Add New Site** > **Import an existing project**.
-3.  **Connect to Git** > **GitHub**.
-    *   Authorize access. If you don't see the Org, check "Grant access" in the GitHub pop-up.
-4.  **Pick Repository**: `olaf-klein-de`.
-5.  **Build Settings**:
-    *   **Build command**: `npm run build`
-    *   **Publish directory**: `dist`
-6.  **Environment Variables**:
-    *   Click `Add environment variables`.
-    *   Paste all `.env` values (Google, Keystatic, Turnstile).
-7.  **Deploy**.
+## 4. Coolify Deployment
+1.  **Set up Coolify**: Access your self-hosted Coolify instance.
+2.  **Create New Project**: Name it `olaf-klein-de`.
+3.  **Connect to GitHub**: 
+    - Add your GitHub account if not done.
+    - Select the source repository: `olaf-klein-de`.
+4.  **Configuration**:
+    - **Build Command**: `npm run build`
+    - **Install Command**: `npm install`
+    - **Output Directory**: `dist`
+5.  **Environment Variables**:
+    - Add all required variables from your `.env` file (Google credentials, Keystatic secrets, and Turnstile keys).
+6.  **Domain**: Configure your production domain (`olaf-klein.de`) in the project settings.
+7.  **Deploy**: Click "Deploy" to build and start your application container. MacOS/Linux specific: Ensure your Docker configuration is correct on the server.

@@ -14,31 +14,32 @@ export default config({
       },
   singletons: {
     settings: singleton({
-      label: 'Site Settings',
+      label: 'Site Settings / Website-Einstellungen',
       path: 'src/content/settings',
       schema: {
-        siteTitle: fields.text({ label: 'Site Title', validation: { length: { min: 1 } } }),
-        siteDescription: fields.text({ label: 'Global SEO Description' }),
+        siteTitle: fields.text({ label: 'Site Title / Website-Titel', validation: { length: { min: 1 } } }),
+        siteDescription: fields.text({ label: 'Global SEO Description / Globale SEO-Beschreibung' }),
         socialLinks: fields.array(
           fields.object({
-            label: fields.text({ label: 'Label' }),
+            label: fields.text({ label: 'Label / Bezeichnung' }),
             url: fields.url({ label: 'URL' }),
-            icon: fields.text({ label: 'Icon Name (e.g. WhatsApp)' }),
+            icon: fields.text({ label: 'Icon Name / Icon-Bezeichnung (e.g. WhatsApp)' }),
           }),
-          { label: 'Social Links / Contacts' }
+          { label: 'Social Links / Kontakte' }
         ),
-        footerText: fields.text({ label: 'Footer Text' }),
+        footerText: fields.text({ label: 'Footer Text / Footer-Text' }),
       },
     }),
     home: singleton({
-      label: 'Home Page',
+      label: 'Home Page / Startseite',
       path: 'src/content/home',
       schema: {
-        headline: fields.text({ label: 'Main Headline' }),
-        subheadline: fields.text({ label: 'Sub Headline' }),
-        tagline: fields.text({ label: 'Tagline (e.g. all we have is now)' }),
+        subheadline: fields.text({ 
+          label: 'Sub-Headline / Unterüberschrift',
+          description: 'The text below the main name (e.g. Caveman with an iPhone)'
+        }),
         heroImage: fields.image({
-          label: 'Hero Image',
+          label: 'Hero Image / Hintergrundbild',
           directory: 'src/assets/images/home',
           publicPath: '@assets/images/home',
         }),

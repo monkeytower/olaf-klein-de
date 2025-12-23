@@ -7,12 +7,14 @@ import config from "../../keystatic.config";
 // Initialize Keystatic Reader
 const reader = createReader(process.cwd(), config);
 
-// Fetch Data (using settings for site title)
-const settings = await reader.singletons.settings.read();
+// Fetch Data
+const [settings, home] = await Promise.all([
+  reader.singletons.settings.read(),
+  reader.singletons.home.read(),
+]);
 
 const siteTitle = settings?.siteTitle || "Olaf Klein";
-const headline = "Contact page Olaf Klein";
-const subheadline = "Caveman with an iPhone";
+const subheadline = home?.subheadline || "Caveman with an iPhone";
 ---
 
 <BaseLayout title={siteTitle} description={subheadline}>
