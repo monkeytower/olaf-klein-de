@@ -50,7 +50,7 @@ export const POST: APIRoute = async ({ request, redirect }) => {
 
     // 1.5. Validate Cloudflare Turnstile
     const turnstileToken = data.get("cf-turnstile-response") as string;
-    const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY;
+    const turnstileSecret = import.meta.env.TURNSTILE_SECRET_KEY || process.env.TURNSTILE_SECRET_KEY;
 
     if (turnstileSecret && turnstileToken) {
       const turnstileVerify = await fetch(
