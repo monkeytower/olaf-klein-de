@@ -14,7 +14,10 @@ let { entry } = Astro.props;
 const { slug } = Astro.params;
 
 if (!entry && slug) {
-  entry = await getEntry("pages", slug);
+  const fetchedEntry = await getEntry("pages", slug);
+  if (fetchedEntry) {
+    entry = fetchedEntry;
+  }
 }
 
 if (!entry) {
@@ -48,7 +51,7 @@ const t = isDe ? labels.de : labels.en;
     }
   </script>
 
-  <div class="max-w-4xl mx-auto px-6 py-12 md:px-12">
+  <div class="max-w-4xl mx-auto px-8 sm:px-12 lg:px-20 py-12">
     {/* Breadcrumb Navigation */}
     <nav
       class="mb-12 flex items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100 transition-opacity"
