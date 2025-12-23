@@ -1,7 +1,6 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { Card } from "../components/ui/Card";
 
 export async function getStaticPaths() {
   const pages = await getCollection("pages");
@@ -11,15 +10,48 @@ export async function getStaticPaths() {
   }));
 }
 
-const { entry } = Astro.props;
+let { entry } = Astro.props;
+const { slug } = Astro.params;
+
+if (!entry && slug) {
+  entry = await getEntry("pages", slug);
+}
+
+if (!entry) {
+  return Astro.redirect("/404");
+}
+
 const { Content } = await entry.render();
+
+// Breadcrumb Logic
+const isDocsPage = entry.slug.startsWith("docs/");
+const isDocsIntro = entry.slug === "docs/intro";
 ---
 
 <BaseLayout title={entry.data.title} description={entry.data.seoDescription}>
   <div class="max-w-4xl mx-auto px-6 py-12 md:px-12">
-    {/* Breadcrumb / Back Link */}
-    <nav class="mb-8 opacity-60 hover:opacity-100 transition-opacity">
-      <a href="/" class="text-sm font-bold">&larr; Home</a>
+    {/* Breadcrumb Navigation */}
+    <nav
+      class="mb-8 flex items-center gap-2 text-sm font-bold opacity-60 hover:opacity-100 transition-opacity"
+    >
+      <a href="/" class="hover:text-primary transition-colors">Home</a>
+
+      {
+        isDocsPage && !isDocsIntro && (
+          <>
+            <span class="opacity-40">/</span>
+            <a href="/docs/intro" class="hover:text-primary transition-colors">
+              Documentation
+            </a>
+          </>
+        )
+      }
+
+      <span class="opacity-40">/</span>
+      <span
+        class="text-primary opacity-100 uppercase text-[10px] tracking-widest"
+        >{entry.slug.split("/").pop()}</span
+      >
     </nav>
 
     {/* Header */}
