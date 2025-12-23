@@ -25,19 +25,22 @@ Professional portfolio and agency website for Olaf Klein, built with **Astro**, 
 └── package.json         # Versioning and dependencies
 ```
 
-##  Genie Commands
+## Genie Commands
 
 | Command           | Action                                         |
 | :---------------- | :--------------------------------------------- |
 | `npm install`     | Installs dependencies                          |
-| `npm run dev`     | Starts local dev server at `localhost:4321`    |
-| `npm run build`   | Build for production (Node.js Adapter)         |
-| `npm start`       | Start the production build entry point         |
+| Command       | Action                                     |
+| :------------ | :----------------------------------------- |
+| `npm install` | Installs dependencies                      |
+| `npm run dev` | Starts local dev server at `localhost:4321`|
+| `npm run build` | Build for production (Node.js Adapter)   |
+| `npm start`   | Start the production build entry point     |
 
 ## 🌍 Repository & Vision
 
-This repository is maintained by **monkeytower internet agency**. 
-The goal is to provide a lightning-fast, high-converting gateway for Olaf Klein's digital projects.
+This repository is maintained by **monkeytower internet agency**.
+The goal is to provide a lightning-fast, high-converting gateway for olaf klein's digital projects.
 
 ---
-© 2025 Olaf Klein & monkeytower internet agency.
+© 2025 olaf klein & monkeytower internet agency.

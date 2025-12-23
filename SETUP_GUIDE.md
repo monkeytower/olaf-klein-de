@@ -34,7 +34,7 @@ This App authorizes Keystatic to write content to your repository.
     *   *If you want ownership in the Org*: Switch context to the Organization before creating the App (Click your profile photo > "Your organizations" > Select Org > Settings > Developer settings).
 
 2.  **Basic Information**:
-    *   **GitHub App name**: `Olaf Klein CMS` (Must be globally unique. If taken, try `Olaf Klein CMS - monkeytower`).
+    *   **GitHub App name**: `Olaf Klein CMS` (Must be globally unique. If taken, try `Olaf Klein CMS - monkeytower internet agency`).
     *   **Homepage URL**: `https://olaf-klein.de` (Your production domain).
     *   **Callback URL**: `https://olaf-klein.de/api/keystatic/github/oauth/callback`
         *   (Crucial for Dev) Add: `http://localhost:4321/api/keystatic/github/oauth/callback` (Use "Add Callback URL" button or separated by comma).

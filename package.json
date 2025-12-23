@@ -2,6 +2,8 @@
   "name": "olaf-klein-de",
   "type": "module",
   "version": "0.1.0",
+  "description": "Premium Portfolio & Agency Site. 100% AI-generated codebase by monkeytower internet agency.",
+  "author": "olaf klein & monkeytower internet agency",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
