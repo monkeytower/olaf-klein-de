@@ -3,7 +3,11 @@
 ---
 
 <div id="form-container">
-  <form id="contact-form" class="space-y-2" autocomplete="on">
+  <form
+    id="contact-form"
+    class="space-y-2 flex flex-col h-full"
+    autocomplete="on"
+  >
     {/* Security: Invisible Honeypot */}
     <div
       class="opacity-0 absolute top-0 left-0 h-0 w-0 -z-50 pointer-events-none"
@@ -33,7 +37,7 @@
           name="name"
           id="name"
           required
-          class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
+          class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 placeholder:text-slate-600 dark:placeholder:text-slate-400/50"
           placeholder="e.g. John Doe"
           data-t="full-name"
           autocomplete="name"
@@ -53,7 +57,7 @@
           name="email"
           id="email"
           required
-          class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200"
+          class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 placeholder:text-slate-600 dark:placeholder:text-slate-400/50"
           placeholder="john@example.com"
           data-t="email-address"
           autocomplete="email"
@@ -61,7 +65,7 @@
       </div>
     </div>
 
-    <div class="space-y-1">
+    <div class="space-y-1 flex-grow flex flex-col">
       <label
         for="message"
         class="text-xs font-semibold opacity-60 ml-1"
@@ -74,7 +78,7 @@
         id="message"
         rows="8"
         required
-        class="w-full bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none"
+        class="w-full flex-grow bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-[var(--text-color)] rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none placeholder:text-slate-600 dark:placeholder:text-slate-400/50"
         placeholder="wobei kann ich helfen?"
         data-t="help-placeholder"></textarea>
     </div>

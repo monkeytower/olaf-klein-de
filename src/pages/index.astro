@@ -37,143 +37,149 @@ const subheadline = home?.subheadline || "Caveman with an iPhone";
       >
         {/* Hero Section - First Panel */}
         <div
-          class="flex-none w-[90vw] md:w-[75vw] lg:w-auto flex flex-col justify-center pt-4 pb-12 md:py-16 lg:py-6 snap-start animate-reveal-up lg:snap-align-none mr-6 lg:mr-0 animate-scroll-hint"
+          class="flex-none w-[90vw] md:w-[75vw] lg:w-auto flex flex-col h-full pt-4 pb-12 md:py-16 lg:py-6 snap-start animate-reveal-up lg:snap-align-none mr-6 lg:mr-0 animate-scroll-hint"
         >
-          <div class="space-y-0">
-            <h1 class="text-7xl md:text-8xl lg:text-7xl lg:leading-tight">
-              <span class="font-bold block text-slate-900 dark:text-white"
-                >Olaf Klein</span
-              >
-            </h1>
-            <p
-              class="text-3xl md:text-4xl lg:text-2xl text-slate-400 dark:text-slate-500 font-medium mt-2 lg:mt-2"
-            >
-              {subheadline}
-            </p>
-            <div class="mt-8 lg:mt-8 space-y-4 lg:space-y-4">
+          <div class="flex flex-col h-full lg:p-12">
+            <div class="space-y-0">
+              <h1 class="text-7xl md:text-8xl lg:text-7xl lg:leading-tight">
+                <span class="font-normal block text-slate-900 dark:text-white"
+                  >Olaf Klein</span
+                >
+              </h1>
               <p
-                class="text-xs font-bold opacity-40 tracking-[0.3em]"
-                data-t="projects"
+                class="text-3xl md:text-4xl lg:text-2xl text-slate-400 dark:text-slate-500 font-medium mt-2 lg:mt-2"
               >
-                Projects:
+                {subheadline}
               </p>
-              <ul
-                class="text-xl md:text-2xl lg:text-base space-y-2 lg:space-y-1.5 opacity-90 font-normal"
-              >
-                <li>
-                  <a
-                    href="https://www.monkeytower.net"
-                    class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
-                    >www.monkeytower.net</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.paranomad.de"
-                    class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
-                    >www.paranomad.de</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.HWK-Essen.de"
-                    class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
-                    >www.HWK-Essen.de</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://www.byteloader.com"
-                    class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
-                    >www.byteloader.com</a
-                  >
-                </li>
-                <li>
-                  <a
-                    href="https://github.com/monkeytower/olaf-klein-de"
-                    class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
-                    >github.com/monkeytower/olaf-klein-de</a
-                  >
-                </li>
-              </ul>
+              <div class="mt-8 lg:mt-8 space-y-4 lg:space-y-4">
+                <p
+                  class="text-xs font-bold opacity-40 tracking-[0.3em]"
+                  data-t="projects"
+                >
+                  Projects:
+                </p>
+                <ul
+                  class="text-xl md:text-2xl lg:text-base space-y-2 lg:space-y-1.5 opacity-90 font-normal"
+                >
+                  <li>
+                    <a
+                      href="https://www.monkeytower.net"
+                      class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
+                      >www.monkeytower.net</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.paranomad.de"
+                      class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
+                      >www.paranomad.de</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.HWK-Essen.de"
+                      class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
+                      >www.HWK-Essen.de</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.byteloader.com"
+                      class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
+                      >www.byteloader.com</a
+                    >
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/monkeytower/olaf-klein-de"
+                      class="hover:text-primary transition-colors border-b-2 border-transparent hover:border-primary pb-0.5"
+                      >github.com/monkeytower/olaf-klein-de</a
+                    >
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
 
-          {/* Buttons Section */}
-          <div class="space-y-3 lg:space-y-4 mt-12 lg:mt-24">
-            <div class="flex flex-col sm:flex-row gap-4 lg:gap-4">
+            <div class="flex-grow"></div>
+
+            {/* Buttons Section */}
+            <div class="space-y-3 lg:space-y-4">
+              <div class="flex flex-col sm:flex-row gap-4 lg:gap-4">
+                <a
+                  href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 flex items-center justify-center gap-4 px-8 py-4 bg-[#25D366] text-white rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:brightness-110 hover:shadow-2xl active:scale-95 shadow-xl shadow-[#25D366]/20"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-phone"
+                    ><path
+                      d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                    ></path></svg
+                  >
+                  WhatsApp Call
+                </a>
+                <a
+                  href="https://wa.me/491772688999"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex-1 flex items-center justify-center gap-4 px-8 py-4 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="lucide lucide-message-square"
+                    ><path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    ></path></svg
+                  >
+                  <span data-t="whatsapp-label">WhatsApp Chat</span>
+                </a>
+              </div>
               <a
-                href="https://call.whatsapp.com/voice/8wDkPkV3sHyYe4AqIEx17I"
+                href="https://calendar.app.google/eCouhaU7e5kSjiPn6"
                 target="_blank"
                 rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-4 px-8 py-4 bg-[#25D366] text-white rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:brightness-110 hover:shadow-2xl active:scale-95 shadow-xl shadow-[#25D366]/20"
+                class="w-full flex items-center justify-center gap-4 px-8 py-4 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
+                data-t="get-support"
               >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-phone"
-                  ><path
-                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
-                  ></path></svg
-                >
-                WhatsApp Call
-              </a>
-              <a
-                href="https://wa.me/491772688999"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="flex-1 flex items-center justify-center gap-4 px-8 py-4 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  class="lucide lucide-message-square"
-                  ><path
-                    d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-                  ></path></svg
-                >
-                <span data-t="whatsapp-label">WhatsApp Chat</span>
+                Get Support
               </a>
             </div>
-            <a
-              href="https://calendar.app.google/eCouhaU7e5kSjiPn6"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="w-full flex items-center justify-center gap-4 px-8 py-4 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-xl font-bold text-sm lg:text-sm tracking-wide transition-all hover:bg-[var(--text-color)]/5 active:scale-95"
-              data-t="get-support"
-            >
-              Get Support
-            </a>
           </div>
         </div>
 
         {/* Form Section - Second Panel */}
         <div
-          class="flex-none w-[90vw] md:w-[80vw] lg:w-auto relative animate-reveal-in delay-200 snap-start lg:px-0 lg:snap-align-none lg:mr-0 animate-scroll-hint flex flex-col justify-center pt-4 pb-12 md:py-16 lg:py-6"
+          class="flex-none w-[90vw] md:w-[80vw] lg:w-auto relative animate-reveal-in delay-200 snap-start lg:px-0 lg:snap-align-none lg:mr-0 animate-scroll-hint flex flex-col h-full pt-4 pb-12 md:py-16 lg:py-6"
         >
           <div
-            class="bg-slate-200/60 dark:bg-white/5 lg:bg-[var(--bg-color)] p-8 md:p-12 lg:p-12 rounded-2xl transition-all overflow-hidden border border-slate-300 dark:border-white/10 lg:border-none"
+            class="bg-slate-100 dark:bg-white/5 p-8 md:p-12 lg:p-12 rounded-xl h-full flex flex-col transition-all overflow-hidden border border-slate-200 dark:border-white/10"
           >
             <div class="mb-6 lg:mb-8">
-              <h3 class="text-lg font-bold opacity-60" data-t="get-in-touch">
+              <h3 class="text-lg font-normal opacity-60" data-t="get-in-touch">
                 Get in touch
               </h3>
             </div>
-            <ContactForm />
+            <div class="flex-grow flex flex-col">
+              <ContactForm />
+            </div>
           </div>
         </div>
       </div>
