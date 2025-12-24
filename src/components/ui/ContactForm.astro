@@ -382,39 +382,66 @@
     recognition.continuous = false;
     recognition.interimResults = false;
 
-    // Detect Language based on current UI preference
+    // Detect Language
     const getLang = () => {
       const stored = localStorage.getItem("lang");
       if (stored) return stored === "de" ? "de-DE" : "en-US";
       return navigator.language.startsWith("de") ? "de-DE" : "en-US";
     };
 
+    const resetButton = () => {
+      dictationBtn?.classList.remove(
+        "text-red-500",
+        "animate-pulse",
+        "text-yellow-500"
+      );
+      dictationBtn?.classList.add("text-slate-400");
+    };
+
     recognition.onstart = () => {
       dictationBtn?.classList.add("text-red-500", "animate-pulse");
-      dictationBtn?.classList.remove("text-slate-400");
+      dictationBtn?.classList.remove("text-slate-400", "text-yellow-500");
     };
 
     recognition.onend = () => {
-      dictationBtn?.classList.remove("text-red-500", "animate-pulse");
-      dictationBtn?.classList.add("text-slate-400");
+      resetButton();
     };
 
     recognition.onerror = (event) => {
       console.error("Speech recognition error", event.error);
-      dictationBtn?.classList.remove("text-red-500", "animate-pulse");
-      dictationBtn?.classList.add("text-slate-400");
+      resetButton();
+
+      // Visual feedback for error
+      if (dictationBtn) {
+        dictationBtn.classList.add("text-yellow-500"); // Standard warning color
+        setTimeout(() => {
+          dictationBtn.classList.remove("text-yellow-500");
+        }, 1000);
+      }
     };
 
     // @ts-ignore
     recognition.onresult = (event) => {
-      const transcript = event.results[0][0].transcript;
-      if (messageInput) {
+      let finalTranscript = "";
+      for (let i = event.resultIndex; i < event.results.length; ++i) {
+        if (event.results[i].isFinal) {
+          finalTranscript += event.results[i][0].transcript;
+        } else {
+          finalTranscript += event.results[i][0].transcript;
+        }
+      }
+
+      if (messageInput && finalTranscript) {
         // @ts-ignore
         const currentVal = messageInput.value;
         // @ts-ignore
-        messageInput.value = currentVal
-          ? currentVal + " " + transcript
-          : transcript;
+        // Add a space if there is already text
+        messageInput.value = currentVal.trim()
+          ? currentVal.trim() + " " + finalTranscript
+          : finalTranscript;
+
+        // Trigger generic input event for any listeners
+        messageInput.dispatchEvent(new Event("input", { bubbles: true }));
       }
     };
 
@@ -423,7 +450,11 @@
         recognition.stop();
       } else {
         recognition.lang = getLang();
-        recognition.start();
+        try {
+          recognition.start();
+        } catch (e) {
+          console.error("Recognition start error", e);
+        }
       }
     });
   }
