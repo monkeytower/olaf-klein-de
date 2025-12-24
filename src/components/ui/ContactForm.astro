@@ -451,6 +451,7 @@
       } else {
         recognition.lang = getLang();
         try {
+          messageInput?.focus(); // Explicitly focus for Desktop support
           recognition.start();
         } catch (e) {
           console.error("Recognition start error", e);
