@@ -13,18 +13,15 @@
     <span class="sr-only">Home</span>
   </a>
 
-  <div class="flex items-center gap-3 md:gap-6">
+  <div class="flex items-center gap-6">
     <a
       href="/docs/en/intro"
       id="nav-docs-link"
-      class="hover:text-primary transition-colors text-sm md:text-base"
-      ><span class="hidden md:inline">Documentation</span><span
-        class="md:hidden">Docs</span
-      ></a
+      class="hover:text-primary transition-colors">Documentation</a
     >
 
     <div
-      class="flex items-center gap-2 border-l border-[var(--border-color)] pl-3 md:pl-6"
+      class="flex items-center gap-2 border-l border-[var(--border-color)] pl-6"
     >
       <button
         id="lang-toggle"
@@ -76,11 +73,7 @@
     if (langToggleBtn)
       langToggleBtn.innerText = lang.charAt(0).toUpperCase() + lang.slice(1);
     if (navDocsLink) {
-      const isMobile = window.innerWidth < 768;
-      navDocsLink.innerHTML =
-        lang === "de"
-          ? `<span class="hidden md:inline">Dokumentation</span><span class="md:hidden">Docs</span>`
-          : `<span class="hidden md:inline">Documentation</span><span class="md:hidden">Docs</span>`;
+      navDocsLink.innerText = lang === "de" ? "Dokumentation" : "Documentation";
       navDocsLink.href = `/docs/${lang}/intro`;
     }
   };

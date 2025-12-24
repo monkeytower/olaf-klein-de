@@ -77,17 +77,30 @@
   }
 
   /* Prose / Docs Mobile Fixes */
-  .prose pre {
+  article {
+    max-width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .prose {
     max-width: 100%;
-    overflow-x: auto !important; /* Force scroll */
-    white-space: pre !important; 
+  }
+
+  .prose pre, .prose figure {
+    max-width: 100%;
+    overflow-x: auto !important; 
+    border-radius: 0.5rem;
+  }
+
+  .prose pre {
+    white-space: pre; 
     word-spacing: normal;
     word-break: normal;
     word-wrap: normal;
-    background-color: #1e293b !important; /* Ensure bg contrast in light mode too */
+    background-color: #1e293b;
     color: #e2e8f0;
     padding: 1rem;
-    border-radius: 0.5rem;
+    display: block;
   }
 
   /* Force word wrapping for long headings or links in prose */
