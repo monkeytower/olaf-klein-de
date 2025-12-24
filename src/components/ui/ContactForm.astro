@@ -84,11 +84,13 @@
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
       defer></script>
-    <div
-      class="cf-turnstile py-2"
-      data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
-      data-theme="auto"
-    >
+    <div class="flex justify-center py-2">
+      <div
+        class="cf-turnstile"
+        data-sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+        data-theme="auto"
+      >
+      </div>
     </div>
 
     <script is:inline>
@@ -126,7 +128,7 @@
     <button
       id="submit-button"
       type="submit"
-      class="w-full py-2.5 bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-bold rounded-xl hover:brightness-110 hover:shadow-xl transition-all duration-300 active:scale-95 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+      class="w-full flex items-center justify-center gap-4 px-8 py-4 border-2 border-[var(--text-color)] text-[var(--text-color)] rounded-[2rem] font-bold text-sm lg:text-sm tracking-wide transition-all hover:bg-[var(--text-color)]/5 active:scale-95 mt-4 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
     >
       <span id="button-text" data-t="send-message">Send Message</span>
     </button>
