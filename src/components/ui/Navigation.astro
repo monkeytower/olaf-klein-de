@@ -28,7 +28,7 @@
         class="text-sm font-black hover:text-primary transition-colors px-2 py-1 rounded border border-[var(--border-color)]"
         aria-label="Switch Language"
       >
-        EN
+        En
       </button>
 
       <button
@@ -70,7 +70,8 @@
   ) as HTMLAnchorElement;
 
   const updateLangUI = (lang: string) => {
-    if (langToggleBtn) langToggleBtn.innerText = lang.toUpperCase();
+    if (langToggleBtn)
+      langToggleBtn.innerText = lang.charAt(0).toUpperCase() + lang.slice(1);
     if (navDocsLink) {
       navDocsLink.innerText = lang === "de" ? "Dokumentation" : "Documentation";
       navDocsLink.href = `/docs/${lang}/intro`;
