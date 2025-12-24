@@ -3,7 +3,7 @@
 ---
 
 <nav
-  class="w-full py-3 px-8 sm:px-12 lg:px-20 flex justify-between items-center text-base font-bold border-b border-[var(--border-color)]"
+  class="w-full py-3 px-4 sm:px-12 lg:px-20 flex justify-between items-center text-base font-bold border-b border-[var(--border-color)]"
 >
   <a
     href="/"
@@ -13,15 +13,18 @@
     <span class="sr-only">Home</span>
   </a>
 
-  <div class="flex items-center gap-6">
+  <div class="flex items-center gap-3 md:gap-6">
     <a
       href="/docs/en/intro"
       id="nav-docs-link"
-      class="hover:text-primary transition-colors">Documentation</a
+      class="hover:text-primary transition-colors text-sm md:text-base"
+      ><span class="hidden md:inline">Documentation</span><span
+        class="md:hidden">Docs</span
+      ></a
     >
 
     <div
-      class="flex items-center gap-2 border-l border-[var(--border-color)] pl-6"
+      class="flex items-center gap-2 border-l border-[var(--border-color)] pl-3 md:pl-6"
     >
       <button
         id="lang-toggle"
@@ -73,7 +76,11 @@
     if (langToggleBtn)
       langToggleBtn.innerText = lang.charAt(0).toUpperCase() + lang.slice(1);
     if (navDocsLink) {
-      navDocsLink.innerText = lang === "de" ? "Dokumentation" : "Documentation";
+      const isMobile = window.innerWidth < 768;
+      navDocsLink.innerHTML =
+        lang === "de"
+          ? `<span class="hidden md:inline">Dokumentation</span><span class="md:hidden">Docs</span>`
+          : `<span class="hidden md:inline">Documentation</span><span class="md:hidden">Docs</span>`;
       navDocsLink.href = `/docs/${lang}/intro`;
     }
   };

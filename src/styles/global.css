@@ -75,4 +75,26 @@
   .delay-300 {
     animation-delay: 300ms;
   }
+
+  /* Prose / Docs Mobile Fixes */
+  .prose pre {
+    max-width: 100%;
+    overflow-x: auto !important; /* Force scroll */
+    white-space: pre !important; 
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    background-color: #1e293b !important; /* Ensure bg contrast in light mode too */
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.5rem;
+  }
+
+  /* Force word wrapping for long headings or links in prose */
+  .prose h1, .prose h2, .prose h3, .prose p, .prose a, .prose li {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
 }
