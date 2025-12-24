@@ -65,7 +65,7 @@
       </div>
     </div>
 
-    <div class="space-y-1 flex-grow flex flex-col">
+    <div class="space-y-1 flex-grow flex flex-col relative">
       <label
         for="message"
         class="text-xs font-semibold opacity-60 ml-1"
@@ -81,6 +81,31 @@
         class="w-full flex-grow bg-slate-50 dark:bg-white/5 border-2 border-[var(--border-color)] px-4 py-2 text-black dark:text-white rounded-xl focus:border-primary focus:bg-[var(--bg-color)] focus:outline-none transition-all duration-200 resize-none placeholder:text-slate-600 dark:placeholder:text-slate-400/50"
         placeholder="wobei kann ich helfen?"
         data-t="help-placeholder"></textarea>
+
+      {/* Dictation Button */}
+      <button
+        type="button"
+        id="dictation-btn"
+        class="hidden absolute bottom-3 right-3 p-2 text-slate-400 hover:text-primary transition-all active:scale-95"
+        aria-label="Start Dictation"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="lucide lucide-mic"
+        >
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" x2="12" y1="19" y2="22"></line>
+        </svg>
+      </button>
     </div>
 
     {/* Security: Cloudflare Turnstile */}
@@ -338,4 +363,68 @@
 
   resetSuccess?.addEventListener("click", showForm);
   resetError?.addEventListener("click", showForm);
+
+  // --- Dictation Logic (Web Speech API) ---
+  const dictationBtn = document.getElementById("dictation-btn");
+  const messageInput = document.getElementById("message");
+
+  // Check support
+  if ("webkitSpeechRecognition" in window || "SpeechRecognition" in window) {
+    // Show button if supported
+    dictationBtn?.classList.remove("hidden");
+
+    // @ts-ignore
+    const SpeechRecognition =
+      // @ts-ignore
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+    const recognition = new SpeechRecognition();
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    // Detect Language based on current UI preference
+    const getLang = () => {
+      const stored = localStorage.getItem("lang");
+      if (stored) return stored === "de" ? "de-DE" : "en-US";
+      return navigator.language.startsWith("de") ? "de-DE" : "en-US";
+    };
+
+    recognition.onstart = () => {
+      dictationBtn?.classList.add("text-red-500", "animate-pulse");
+      dictationBtn?.classList.remove("text-slate-400");
+    };
+
+    recognition.onend = () => {
+      dictationBtn?.classList.remove("text-red-500", "animate-pulse");
+      dictationBtn?.classList.add("text-slate-400");
+    };
+
+    recognition.onerror = (event) => {
+      console.error("Speech recognition error", event.error);
+      dictationBtn?.classList.remove("text-red-500", "animate-pulse");
+      dictationBtn?.classList.add("text-slate-400");
+    };
+
+    // @ts-ignore
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      if (messageInput) {
+        // @ts-ignore
+        const currentVal = messageInput.value;
+        // @ts-ignore
+        messageInput.value = currentVal
+          ? currentVal + " " + transcript
+          : transcript;
+      }
+    };
+
+    dictationBtn?.addEventListener("click", () => {
+      if (dictationBtn.classList.contains("text-red-500")) {
+        recognition.stop();
+      } else {
+        recognition.lang = getLang();
+        recognition.start();
+      }
+    });
+  }
 </script>
