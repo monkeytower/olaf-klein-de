@@ -1,9 +1,8 @@
 ---
-title: "Step 4"
-seoTitle: "Step 4: Coolify Deployment"
-seoDescription: "Deploying the project to your own server via Coolify and Docker."
+title: Step 4
+seoTitle: 'Step 4: Coolify Deployment'
+seoDescription: Deploying the project to your own server via Coolify and Docker.
 ---
-
 # 🌍 Step 4: Deployment
 
 We host the site on **Coolify** (deploy.dalm.de). We use the **Node.js Adapter** for Astro, which allows us to run the site as a persistent containerized application.
@@ -11,32 +10,33 @@ We host the site on **Coolify** (deploy.dalm.de). We use the **Node.js Adapter**
 ## 1. Preparing Docker
 
 Astro is configured to use the `@astrojs/node` adapter. We include a `Dockerfile` that:
-*   Installs dependencies and builds the site.
-*   Exposes port 3000 for the Node.js server.
-*   Runs the standalone server entry point.
+
+- Installs dependencies and builds the site.
+- Exposes port 3000 for the Node.js server.
+- Runs the standalone server entry point.
 
 ## 2. Connecting to Coolify
 
-1.  Log in to your Coolify instance at `deploy.dalm.de`.
-2.  Create a new **Project** and **Resource**.
-3.  Select **Public Repository** or **Private GitHub Repository**.
-4.  Coolify will automatically detect the `Dockerfile` in the root of the project.
+1. Log in to your Coolify instance at `deploy.dalm.de`.
+1. Create a new **Project** and **Resource**.
+1. Select **Public Repository** or **Private GitHub Repository**.
+1. Coolify will automatically detect the `Dockerfile` in the root of the project.
 
 ## 3. Environment Variables
 
 Since we are running in a container, environment variables must be defined in the Coolify UI under the **Environment Variables** tab of your resource:
 
-*   `GOOGLE_CLIENT_ID` / `_SECRET` / `_REFRESH_TOKEN`
-*   `KEYSTATIC_GITHUB_CLIENT_ID` / `_SECRET`
-*   `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
-*   `KEYSTATIC_SECRET`
+- `GOOGLE_CLIENT_ID` / `_SECRET` / `_REFRESH_TOKEN`
+- `KEYSTATIC_GITHUB_CLIENT_ID` / `_SECRET`
+- `PUBLIC_TURNSTILE_SITE_KEY` / `TURNSTILE_SECRET_KEY`
+- `KEYSTATIC_SECRET`
 
 ## 4. GitHub App Callback
 
 If using Keystatic with GitHub storage, ensure your GitHub App's **Callback URL** is updated to point to your new domain:
 `https://your-new-domain.com/api/keystatic/github/oauth/callback`
 
-## 5. The Result
+## 5. The Result:
 
 Coolify monitors your repository. When you push to `main`, it builds a new Docker image and restarts the container with zero downtime.
 
@@ -45,8 +45,9 @@ Coolify monitors your repository. When you push to `main`, it builds a new Docke
 # 🎉 Conclusion
 
 Your transition to a self-hosted architecture is complete. The site remains:
-*   **Fast**: Pre-rendered static pages served by Node.js.
-*   **Functional**: Active server-side API for the contact form.
-*   **Independent**: You now own the infrastructure.
+
+- **Fast**: Pre-rendered static pages served by Node.js.
+- **Functional**: Active server-side API for the contact form.
+- **Independent**: You now own the infrastructure.
 
 Happy Deploying!
