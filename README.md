@@ -40,6 +40,8 @@ Professional portfolio and agency website for Olaf Klein, built with **Astro**, 
 ## 🌍 Repository & Vision
 
 This repository is maintained by **monkeytower internet agency**.
+Repository: [github.com/monkeytower/olaf-klein-de](https://github.com/monkeytower/olaf-klein-de)
+
 The goal is to provide a lightning-fast, high-converting gateway for olaf klein's digital projects.
 
 ---
